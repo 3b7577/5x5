@@ -60,7 +60,7 @@ pub fn analyze_general(img: &ImageView) -> TagBits {
                 };
 
                 if (above & mask == 0) && (below & mask) == 0 {
-                    tags |= TagBits::HORIZONTAL_LINE;
+                    tags |= TagBits::GENERAL_HORIZONTAL_LINE;
                 }
 
                 break;
@@ -85,7 +85,7 @@ pub fn analyze_general(img: &ImageView) -> TagBits {
                 };
 
                 if (left & mask == 0) && (right & mask == 0) {
-                    tags |= TagBits::VERTICAL_LINE;
+                    tags |= TagBits::GENERAL_VERTICAL_LINE;
                 }
 
                 break;
@@ -94,7 +94,7 @@ pub fn analyze_general(img: &ImageView) -> TagBits {
     }
 
     if has_isolated_pixel(img) {
-        tags |= TagBits::ISOLATED_PIXELS;
+        tags |= TagBits::GENERAL_ISOLATED_PIXELS;
     }
 
     tags

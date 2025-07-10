@@ -96,7 +96,7 @@ pub fn analyze_symmetry(img: &ImageView) -> TagBits {
     }
 
     if check_four_fold_rotation(img) {
-        tags |= TagBits::FOUR_FOLD_ROTATION;
+        tags |= TagBits::SYM_FOUR_FOLD_ROTATION;
     }
 
     tags

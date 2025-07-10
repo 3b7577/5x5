@@ -4,30 +4,30 @@
 - bit: 3  ; name: SYM_ANTI_DIAG           ; label: sym-anti-diag
 - bit: 4  ; name: SYM                     ; label: sym
 - bit: 5  ; name: SYM_ALL                 ; label: sym-all
-- bit: 6  ; name: FOUR_FOLD_ROTATION      ; label: four-fold-rotation
+- bit: 6  ; name: SYM_FOUR_FOLD_ROTATION      ; label: four-fold-rotation
 
-- bit: 7  ; name: TOP_BORDER_STRICT       ; label: top-border-strict
-- bit: 8  ; name: TOP_BORDER_MODERATE     ; label: top-border-moderate
-- bit: 9  ; name: BOTTOM_BORDER_STRICT    ; label: bottom-border-strict
-- bit: 10 ; name: BOTTOM_BORDER_MODERATE  ; label: bottom-border-moderate
-- bit: 11 ; name: LEFT_BORDER_STRICT      ; label: left-border-strict
-- bit: 12 ; name: LEFT_BORDER_MODERATE    ; label: left-border-moderate
-- bit: 13 ; name: RIGHT_BORDER_STRICT     ; label: right-border-strict
-- bit: 14 ; name: RIGHT_BORDER_MODERATE   ; label: right-border-moderate
-- bit: 15 ; name: FULL_BORDER_MODERATE    ; label: full-border-moderate
-- bit: 16 ; name: FULL_BORDER_STRICT      ; label: full-border-strict
+- bit: 7  ; name: BORDERS_TOP_BORDER_STRICT       ; label: top-border-strict
+- bit: 8  ; name: BORDERS_TOP_BORDER_MODERATE     ; label: top-border-moderate
+- bit: 9  ; name: BORDERS_BOTTOM_BORDER_STRICT    ; label: bottom-border-strict
+- bit: 10 ; name: BORDERS_BOTTOM_BORDER_MODERATE  ; label: bottom-border-moderate
+- bit: 11 ; name: BORDERS_LEFT_BORDER_STRICT      ; label: left-border-strict
+- bit: 12 ; name: BORDERS_LEFT_BORDER_MODERATE    ; label: left-border-moderate
+- bit: 13 ; name: BORDERS_RIGHT_BORDER_STRICT     ; label: right-border-strict
+- bit: 14 ; name: BORDERS_RIGHT_BORDER_MODERATE   ; label: right-border-moderate
+- bit: 15 ; name: BORDERS_FULL_BORDER_MODERATE    ; label: full-border-moderate
+- bit: 16 ; name: BORDERS_FULL_BORDER_STRICT      ; label: full-border-strict
 
-- bit: 17 ; name: CENTER_HEAVY            ; label: center-heavy
-- bit: 18 ; name: CENTER_EMPTY            ; label: center-empty
-- bit: 19 ; name: EDGE_HEAVY              ; label: edge-heavy
-- bit: 20 ; name: TOP_HEAVY               ; label: top-heavy
-- bit: 21 ; name: BOTTOM_HEAVY            ; label: bottom-heavy
-- bit: 22 ; name: LEFT_HEAVY              ; label: left-heavy
-- bit: 23 ; name: RIGHT_HEAVY             ; label: right-heavy
-- bit: 24 ; name: TOP_LEFT_HEAVY          ; label: top-left-heavy
-- bit: 25 ; name: TOP_RIGHT_HEAVY         ; label: top-right-heavy
-- bit: 26 ; name: BOTTOM_LEFT_HEAVY       ; label: bottom-left-heavy
-- bit: 27 ; name: BOTTOM_RIGHT_HEAVY      ; label: bottom-right-heavy
+- bit: 17 ; name: WEIGHT_CENTER_HEAVY            ; label: center-heavy
+- bit: 18 ; name: WEIGHT_CENTER_EMPTY            ; label: center-empty
+- bit: 19 ; name: WEIGHT_EDGE_HEAVY              ; label: edge-heavy
+- bit: 20 ; name: WEIGHT_TOP_HEAVY               ; label: top-heavy
+- bit: 21 ; name: WEIGHT_BOTTOM_HEAVY            ; label: bottom-heavy
+- bit: 22 ; name: WEIGHT_LEFT_HEAVY              ; label: left-heavy
+- bit: 23 ; name: WEIGHT_RIGHT_HEAVY             ; label: right-heavy
+- bit: 24 ; name: WEIGHT_TOP_LEFT_HEAVY          ; label: top-left-heavy
+- bit: 25 ; name: WEIGHT_TOP_RIGHT_HEAVY         ; label: top-right-heavy
+- bit: 26 ; name: WEIGHT_BOTTOM_LEFT_HEAVY       ; label: bottom-left-heavy
+- bit: 27 ; name: WEIGHT_BOTTOM_RIGHT_HEAVY      ; label: bottom-right-heavy
 
 - bit: 28 ; name: SHAPE_CROSS             ; label: shape-cross
 - bit: 29 ; name: SHAPE_ALL_CORNERS       ; label: shape-all-corners
@@ -38,6 +38,6 @@
 - bit: 34 ; name: SHAPE_ARROW             ; label: shape-arrow
 - bit: 35 ; name: SHAPE_H                 ; label: shape-h
 
-- bit: 36 ; name: HORIZONTAL_LINE         ; label: horizontal-line
-- bit: 37 ; name: VERTICAL_LINE           ; label: vertical-line
-- bit: 38 ; name: ISOLATED_PIXELS         ; label: isolated-pixels
+- bit: 36 ; name: GENERAL_HORIZONTAL_LINE         ; label: horizontal-line
+- bit: 37 ; name: GENERAL_VERTICAL_LINE           ; label: vertical-line
+- bit: 38 ; name: GENERAL_ISOLATED_PIXELS         ; label: isolated-pixels

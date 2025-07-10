@@ -1,6 +1,6 @@
-use crate::masks::*;
 use crate::ImageView;
 use crate::TagBits;
+use crate::masks::*;
 
 const CENTER_PX_COUNT: f32 = 9.0;
 const EDGE_PX_COUNT: f32 = 16.0;
@@ -23,16 +23,16 @@ pub fn analyze_center(img: &ImageView) -> TagBits {
     let bottom_right_black: f32 = (img.bits & BOTTOM_RIGHT_CORNER_MASK).count_ones() as f32;
 
     if center_black == 0 {
-        tags |= TagBits::CENTER_EMPTY;
+        tags |= TagBits::WEIGHT_CENTER_EMPTY;
     }
 
     let center_density: f32 = center_black as f32 / CENTER_PX_COUNT;
     let edge_density: f32 = edge_black / EDGE_PX_COUNT;
 
     if center_density - edge_density >= CENTER_VS_EDGE_THRESHOLD {
-        tags |= TagBits::CENTER_HEAVY;
+        tags |= TagBits::WEIGHT_CENTER_HEAVY;
     } else if edge_density - center_density >= CENTER_VS_EDGE_THRESHOLD {
-        tags |= TagBits::EDGE_HEAVY;
+        tags |= TagBits::WEIGHT_EDGE_HEAVY;
     }
 
     let top_half_density: f32 = top_half_black / total_px;
@@ -41,15 +41,15 @@ pub fn analyze_center(img: &ImageView) -> TagBits {
     let right_half_density: f32 = right_half_black / total_px;
 
     if top_half_density - bottom_half_density >= HALF_VS_HALF_THRESHOLD {
-        tags |= TagBits::TOP_HEAVY;
+        tags |= TagBits::WEIGHT_TOP_HEAVY;
     } else if bottom_half_density - top_half_density >= HALF_VS_HALF_THRESHOLD {
-        tags |= TagBits::BOTTOM_HEAVY;
+        tags |= TagBits::WEIGHT_BOTTOM_HEAVY;
     }
 
     if left_half_density - right_half_density >= HALF_VS_HALF_THRESHOLD {
-        tags |= TagBits::LEFT_HEAVY;
+        tags |= TagBits::WEIGHT_LEFT_HEAVY;
     } else if right_half_density - left_half_density >= HALF_VS_HALF_THRESHOLD {
-        tags |= TagBits::RIGHT_HEAVY;
+        tags |= TagBits::WEIGHT_RIGHT_HEAVY;
     }
 
     let top_left_corner_density: f32 = top_left_black / total_px;
@@ -77,7 +77,7 @@ pub fn analyze_center(img: &ImageView) -> TagBits {
             bottom_left_corner_density,
             bottom_right_corner_density,
         ],
-        TagBits::TOP_LEFT_HEAVY,
+        TagBits::WEIGHT_TOP_LEFT_HEAVY,
     );
 
     flag_if_matches_corner(
@@ -88,7 +88,7 @@ pub fn analyze_center(img: &ImageView) -> TagBits {
             bottom_left_corner_density,
             bottom_right_corner_density,
         ],
-        TagBits::TOP_RIGHT_HEAVY,
+        TagBits::WEIGHT_TOP_RIGHT_HEAVY,
     );
 
     flag_if_matches_corner(
@@ -99,7 +99,7 @@ pub fn analyze_center(img: &ImageView) -> TagBits {
             top_right_corner_density,
             bottom_right_corner_density,
         ],
-        TagBits::BOTTOM_LEFT_HEAVY,
+        TagBits::WEIGHT_BOTTOM_LEFT_HEAVY,
     );
 
     flag_if_matches_corner(
@@ -110,7 +110,7 @@ pub fn analyze_center(img: &ImageView) -> TagBits {
             top_right_corner_density,
             bottom_left_corner_density,
         ],
-        TagBits::BOTTOM_RIGHT_HEAVY,
+        TagBits::WEIGHT_BOTTOM_RIGHT_HEAVY,
     );
 
     tags

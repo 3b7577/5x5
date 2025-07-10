@@ -1,6 +1,6 @@
-use crate::masks::*;
 use crate::ImageView;
 use crate::TagBits;
+use crate::masks::*;
 
 pub fn analyze_borders(img: &ImageView) -> TagBits {
     let mut tags: TagBits = TagBits::empty();
@@ -17,32 +17,32 @@ pub fn analyze_borders(img: &ImageView) -> TagBits {
 
     flag_if_matches(
         TOP_MASK,
-        TagBits::TOP_BORDER_MODERATE,
-        TagBits::TOP_BORDER_STRICT,
+        TagBits::BORDERS_TOP_BORDER_MODERATE,
+        TagBits::BORDERS_TOP_BORDER_STRICT,
     );
 
     flag_if_matches(
         BOTTOM_MASK,
-        TagBits::BOTTOM_BORDER_MODERATE,
-        TagBits::BOTTOM_BORDER_STRICT,
+        TagBits::BORDERS_BOTTOM_BORDER_MODERATE,
+        TagBits::BORDERS_BOTTOM_BORDER_STRICT,
     );
 
     flag_if_matches(
         LEFT_MASK,
-        TagBits::LEFT_BORDER_MODERATE,
-        TagBits::LEFT_BORDER_STRICT,
+        TagBits::BORDERS_LEFT_BORDER_MODERATE,
+        TagBits::BORDERS_LEFT_BORDER_STRICT,
     );
 
     flag_if_matches(
         RIGHT_MASK,
-        TagBits::RIGHT_BORDER_MODERATE,
-        TagBits::RIGHT_BORDER_STRICT,
+        TagBits::BORDERS_RIGHT_BORDER_MODERATE,
+        TagBits::BORDERS_RIGHT_BORDER_STRICT,
     );
 
     flag_if_matches(
         FULL_BORDER_MASK,
-        TagBits::FULL_BORDER_MODERATE,
-        TagBits::FULL_BORDER_STRICT,
+        TagBits::BORDERS_FULL_BORDER_MODERATE,
+        TagBits::BORDERS_FULL_BORDER_STRICT,
     );
 
     tags
