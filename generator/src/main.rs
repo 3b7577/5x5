@@ -1,16 +1,13 @@
 use anyhow::{Ok, Result};
 use dotenvy::from_path;
+use indicatif::{ProgressBar, ProgressStyle};
 use postgres::{
     Client, NoTls,
     binary_copy::BinaryCopyInWriter,
     types::{ToSql, Type},
 };
 use rayon::prelude::*;
-use std::{
-    env,
-    path::PathBuf,
-    sync::atomic::{AtomicU64, Ordering},
-};
+use std::{env, path::PathBuf};
 use thousands::Separable;
 
 fn main() -> Result<()> {
@@ -24,7 +21,7 @@ fn main() -> Result<()> {
     client.execute(
         "
         CREATE TABLE bw25 (
-            img_bits   BIGINT NOT NULL,
+            img_bits   BIGINT PRIMARY KEY,
             tag_bits   BIGINT NOT NULL,
             black_cnt  SMALLINT NOT NULL
         );
@@ -40,22 +37,24 @@ fn main() -> Result<()> {
 
     eprintln!("generating in parallel...");
 
-    let counter = AtomicU64::new(0);
+    let total_count = 1u64 << 25;
+    let pb = ProgressBar::new(total_count);
+    pb.set_style(
+        ProgressStyle::with_template("[{elapsed_precise}] [{wide_bar}] {pos}/{len} ({eta})")
+            .unwrap()
+            .progress_chars("█▉▊▋▌▍▎▏ "),
+    );
 
     let t_gen = std::time::Instant::now();
     let all_rows: Vec<(i64, i64, i16)> = (0u32..(1 << 25))
         .into_par_iter()
         .filter_map(|img_bits| {
             let analyzed_image = generator::analyze(img_bits);
+            pb.inc(1);
 
             if analyzed_image.tags.is_empty() {
                 None
             } else {
-                let count = counter.fetch_add(1, Ordering::Relaxed);
-                if count % 1_000_000 == 0 {
-                    eprintln!("...analyzed {:>15} images", count.separate_with_commas());
-                }
-
                 Some((
                     img_bits as i64,
                     analyzed_image.tags.bits() as i64,
@@ -65,21 +64,27 @@ fn main() -> Result<()> {
         })
         .collect();
 
-    eprintln!("gen and analysis took {:?}", t_gen.elapsed());
+    pb.finish();
+    eprintln!("generation and analysis took {:?}", t_gen.elapsed());
 
     eprintln!("streaming {} rows to db...", all_rows.len());
     let t_stream = std::time::Instant::now();
+    let pb_db = ProgressBar::new(all_rows.len() as u64);
+    pb_db.set_style(
+        ProgressStyle::with_template("[{elapsed_precise}] [{wide_bar}] {pos}/{len} ({eta})")
+            .unwrap()
+            .progress_chars("█▉▊▋▌▍▎▏ "),
+    );
 
-    for (i, (img_bits, tag_bits, black_cnt)) in all_rows.iter().enumerate() {
-        if i as u64 % 1_000_000 == 0 {
-            eprintln!("...wrote {:>15} rows", i.separate_with_commas());
-        }
-
+    for (img_bits, tag_bits, black_cnt) in &all_rows {
         let row: [&(dyn ToSql + Sync); 3] = [img_bits, tag_bits, black_cnt];
         writer.write(&row)?;
+        pb_db.inc(1);
     }
 
     let total: u64 = writer.finish()?;
+
+    pb_db.finish();
     eprintln!(
         "done - {} rows copied to db in {:?}",
         total.separate_with_commas(),
