@@ -6,13 +6,17 @@
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "types": ["node"],
     "rootDir": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@shared/*": ["./shared/*"]
+    }
   },
-  "include": [
-    "api/**/*",
-    "db/**/*",
-    "types/**/*.d.ts"
-  ]
+  "include": ["api/**/*", "db/**/*", "types/**/*.d.ts", "shared/**/*"]
 }
