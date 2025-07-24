@@ -1,7 +1,7 @@
 import { FastifyPluginAsync } from 'fastify';
 import { db } from '../../db/client.ts';
 import { bw25 } from '../../db/schema.ts';
-import { Tags } from '@shared/tags.ts';
+import { TAGS } from '@shared/tags.ts';
 import { and, asc, desc, eq, gte, lte, or, SQL, sql } from 'drizzle-orm';
 
 type GET_IMAGES_QUERY = {
@@ -118,7 +118,7 @@ const imagesRoute: FastifyPluginAsync = async (fastify) => {
 
         if (tags) {
           const tagNames = (tags.split(',') ?? []).map((t) => t.trim());
-          const tagToBit = Object.fromEntries(Tags.map((t) => [t.key, t.bit]));
+          const tagToBit = Object.fromEntries(TAGS.map((t) => [t.key, t.bit]));
 
           const bitmask = tagNames.reduce((acc, tag) => {
             const bit = tagToBit[tag];
@@ -174,9 +174,8 @@ const imagesRoute: FastifyPluginAsync = async (fastify) => {
 
         const results = await query;
 
-        let hasMore = false;
-        if (results.length > LIMIT) {
-          hasMore = true;
+        const hasMoreResults = results.length > LIMIT;
+        if (hasMoreResults) {
           results.pop();
         }
 
@@ -185,13 +184,12 @@ const imagesRoute: FastifyPluginAsync = async (fastify) => {
           .from(bw25)
           .where(and(...conditions));
 
-        let nextCursor = null;
-        if (hasMore) {
-          const last = results.at(-1);
-          nextCursor = last
-            ? encodeCursor({ blackCnt: last.blackCnt, imgBits: last.imgBits })
-            : null;
-        }
+        const nextCursor = hasMoreResults
+          ? encodeCursor({
+              blackCnt: results.at(-1)!.blackCnt,
+              imgBits: results.at(-1)!.imgBits,
+            })
+          : null;
 
         return {
           images: results.map((row) => ({
@@ -200,7 +198,6 @@ const imagesRoute: FastifyPluginAsync = async (fastify) => {
             blackCnt: row.blackCnt,
           })),
           nextCursor,
-          hasMore,
           totalCount,
         };
       } catch (error) {

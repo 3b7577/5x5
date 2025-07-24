@@ -1,43 +1,43 @@
-- bit: 0  ; name: SYM_H                   ; label: sym-h
-- bit: 1  ; name: SYM_V                   ; label: sym-v
-- bit: 2  ; name: SYM_DIAG                ; label: sym-diag
-- bit: 3  ; name: SYM_ANTI_DIAG           ; label: sym-anti-diag
-- bit: 4  ; name: SYM                     ; label: sym
-- bit: 5  ; name: SYM_ALL                 ; label: sym-all
-- bit: 6  ; name: SYM_FOUR_FOLD_ROTATION      ; label: four-fold-rotation
+- bit:  0 ; name: SYM_H                          ; label: sym-h                   ; category: Symmetry
+- bit:  1 ; name: SYM_V                          ; label: sym-v                   ; category: Symmetry
+- bit:  2 ; name: SYM_DIAG                       ; label: sym-diag                ; category: Symmetry
+- bit:  3 ; name: SYM_ANTI_DIAG                  ; label: sym-anti-diag           ; category: Symmetry
+- bit:  4 ; name: SYM                            ; label: sym                     ; category: Symmetry
+- bit:  5 ; name: SYM_ALL                        ; label: sym-all                 ; category: Symmetry
+- bit:  6 ; name: SYM_FOUR_FOLD_ROTATION         ; label: four-fold-rotation      ; category: Symmetry
 
-- bit: 7  ; name: BORDERS_TOP_BORDER_STRICT       ; label: top-border-strict
-- bit: 8  ; name: BORDERS_TOP_BORDER_MODERATE     ; label: top-border-moderate
-- bit: 9  ; name: BORDERS_BOTTOM_BORDER_STRICT    ; label: bottom-border-strict
-- bit: 10 ; name: BORDERS_BOTTOM_BORDER_MODERATE  ; label: bottom-border-moderate
-- bit: 11 ; name: BORDERS_LEFT_BORDER_STRICT      ; label: left-border-strict
-- bit: 12 ; name: BORDERS_LEFT_BORDER_MODERATE    ; label: left-border-moderate
-- bit: 13 ; name: BORDERS_RIGHT_BORDER_STRICT     ; label: right-border-strict
-- bit: 14 ; name: BORDERS_RIGHT_BORDER_MODERATE   ; label: right-border-moderate
-- bit: 15 ; name: BORDERS_FULL_BORDER_MODERATE    ; label: full-border-moderate
-- bit: 16 ; name: BORDERS_FULL_BORDER_STRICT      ; label: full-border-strict
+- bit:  7 ; name: BORDERS_TOP_BORDER_STRICT      ; label: top-border-strict       ; category: Border
+- bit:  8 ; name: BORDERS_TOP_BORDER_MODERATE    ; label: top-border-moderate     ; category: Border
+- bit:  9 ; name: BORDERS_BOTTOM_BORDER_STRICT   ; label: bottom-border-strict    ; category: Border
+- bit: 10 ; name: BORDERS_BOTTOM_BORDER_MODERATE ; label: bottom-border-moderate  ; category: Border
+- bit: 11 ; name: BORDERS_LEFT_BORDER_STRICT     ; label: left-border-strict      ; category: Border
+- bit: 12 ; name: BORDERS_LEFT_BORDER_MODERATE   ; label: left-border-moderate    ; category: Border
+- bit: 13 ; name: BORDERS_RIGHT_BORDER_STRICT    ; label: right-border-strict     ; category: Border
+- bit: 14 ; name: BORDERS_RIGHT_BORDER_MODERATE  ; label: right-border-moderate   ; category: Border
+- bit: 15 ; name: BORDERS_FULL_BORDER_MODERATE   ; label: full-border-moderate    ; category: Border
+- bit: 16 ; name: BORDERS_FULL_BORDER_STRICT     ; label: full-border-strict      ; category: Border
 
-- bit: 17 ; name: WEIGHT_CENTER_HEAVY            ; label: center-heavy
-- bit: 18 ; name: WEIGHT_CENTER_EMPTY            ; label: center-empty
-- bit: 19 ; name: WEIGHT_EDGE_HEAVY              ; label: edge-heavy
-- bit: 20 ; name: WEIGHT_TOP_HEAVY               ; label: top-heavy
-- bit: 21 ; name: WEIGHT_BOTTOM_HEAVY            ; label: bottom-heavy
-- bit: 22 ; name: WEIGHT_LEFT_HEAVY              ; label: left-heavy
-- bit: 23 ; name: WEIGHT_RIGHT_HEAVY             ; label: right-heavy
-- bit: 24 ; name: WEIGHT_TOP_LEFT_HEAVY          ; label: top-left-heavy
-- bit: 25 ; name: WEIGHT_TOP_RIGHT_HEAVY         ; label: top-right-heavy
-- bit: 26 ; name: WEIGHT_BOTTOM_LEFT_HEAVY       ; label: bottom-left-heavy
-- bit: 27 ; name: WEIGHT_BOTTOM_RIGHT_HEAVY      ; label: bottom-right-heavy
+- bit: 17 ; name: WEIGHT_CENTER_HEAVY            ; label: center-heavy            ; category: Weight Distribution
+- bit: 18 ; name: WEIGHT_CENTER_EMPTY            ; label: center-empty            ; category: Weight Distribution
+- bit: 19 ; name: WEIGHT_EDGE_HEAVY              ; label: edge-heavy              ; category: Weight Distribution
+- bit: 20 ; name: WEIGHT_TOP_HEAVY               ; label: top-heavy               ; category: Weight Distribution
+- bit: 21 ; name: WEIGHT_BOTTOM_HEAVY            ; label: bottom-heavy            ; category: Weight Distribution
+- bit: 22 ; name: WEIGHT_LEFT_HEAVY              ; label: left-heavy              ; category: Weight Distribution
+- bit: 23 ; name: WEIGHT_RIGHT_HEAVY             ; label: right-heavy             ; category: Weight Distribution
+- bit: 24 ; name: WEIGHT_TOP_LEFT_HEAVY          ; label: top-left-heavy          ; category: Weight Distribution
+- bit: 25 ; name: WEIGHT_TOP_RIGHT_HEAVY         ; label: top-right-heavy         ; category: Weight Distribution
+- bit: 26 ; name: WEIGHT_BOTTOM_LEFT_HEAVY       ; label: bottom-left-heavy       ; category: Weight Distribution
+- bit: 27 ; name: WEIGHT_BOTTOM_RIGHT_HEAVY      ; label: bottom-right-heavy      ; category: Weight Distribution
 
-- bit: 28 ; name: SHAPE_CROSS             ; label: shape-cross
-- bit: 29 ; name: SHAPE_ALL_CORNERS       ; label: shape-all-corners
-- bit: 30 ; name: SHAPE_L                 ; label: shape-l
-- bit: 31 ; name: SHAPE_T                 ; label: shape-t
-- bit: 32 ; name: SHAPE_RING              ; label: shape-ring
-- bit: 33 ; name: SHAPE_X                 ; label: shape-x
-- bit: 34 ; name: SHAPE_ARROW             ; label: shape-arrow
-- bit: 35 ; name: SHAPE_H                 ; label: shape-h
+- bit: 28 ; name: SHAPE_CROSS                    ; label: shape-cross             ; category: Shape
+- bit: 29 ; name: SHAPE_ALL_CORNERS              ; label: shape-all-corners       ; category: Shape
+- bit: 30 ; name: SHAPE_L                        ; label: shape-l                 ; category: Shape
+- bit: 31 ; name: SHAPE_T                        ; label: shape-t                 ; category: Shape
+- bit: 32 ; name: SHAPE_RING                     ; label: shape-ring              ; category: Shape
+- bit: 33 ; name: SHAPE_X                        ; label: shape-x                 ; category: Shape
+- bit: 34 ; name: SHAPE_ARROW                    ; label: shape-arrow             ; category: Shape
+- bit: 35 ; name: SHAPE_H                        ; label: shape-h                 ; category: Shape
 
-- bit: 36 ; name: GENERAL_HORIZONTAL_LINE         ; label: horizontal-line
-- bit: 37 ; name: GENERAL_VERTICAL_LINE           ; label: vertical-line
-- bit: 38 ; name: GENERAL_ISOLATED_PIXELS         ; label: isolated-pixels
+- bit: 36 ; name: GENERAL_HORIZONTAL_LINE        ; label: horizontal-line         ; category: Basic Elements
+- bit: 37 ; name: GENERAL_VERTICAL_LINE          ; label: vertical-line           ; category: Basic Elements
+- bit: 38 ; name: GENERAL_ISOLATED_PIXELS        ; label: isolated-pixels         ; category: Basic Elements
