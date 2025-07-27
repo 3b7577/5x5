@@ -1,7 +1,7 @@
 import { FastifyPluginAsync } from 'fastify';
-import { db } from '../../db/client.ts';
-import { bw25 } from '../../db/schema.ts';
-import { TAGS } from '@shared/tags.ts';
+import { db } from '../../db/client.js';
+import { bw25 } from '../../db/schema.js';
+import { TAGS } from '@shared/tags.js';
 import { and, asc, desc, eq, gte, lte, or, SQL, sql } from 'drizzle-orm';
 
 type GET_IMAGES_QUERY = {

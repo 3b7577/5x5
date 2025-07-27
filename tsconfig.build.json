@@ -3,8 +3,11 @@
   "compilerOptions": {
     "allowImportingTsExtensions": false,
     "noEmit": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "target": "ES2022"
   },
-  "include": ["api/**/*", "db/**/*"],
-  "exclude": ["**/*.test.ts", "**/*.spec.ts", "node_modules"]
+  "include": ["api/**/*", "db/**/*", "shared/**/*"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "node_modules", "dist"]
 }

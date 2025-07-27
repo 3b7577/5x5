@@ -16,6 +16,5 @@
   "embeddedLanguageFormatting": "auto",
   "htmlWhitespaceSensitivity": "css",
   "jsxBracketSameLine": false,
-  "jsxSingleQuote": true,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "jsxSingleQuote": true
 }

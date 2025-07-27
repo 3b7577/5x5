@@ -1,0 +1,36 @@
+{
+  "name": "5x5-api",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc -p ../tsconfig.build.json && tsc-alias -p ../tsconfig.build.json",
+    "start": "node ../dist/api/index.js",
+    "dev": "tsx watch index.ts",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "echo \"No tests specified\"",
+    "db:generate": "drizzle-kit generate --config=../.drizzle.config.ts",
+    "db:migrate": "drizzle-kit push --config=../.drizzle.config.ts"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.5.1",
+    "@fastify/swagger-ui": "^5.2.3",
+    "drizzle-orm": "^0.44.2",
+    "fastify": "^5.4.0",
+    "fastify-cli": "^7.4.0",
+    "pg": "^8.16.3",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.10",
+    "@types/pg": "^8.15.4",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "drizzle-kit": "^0.31.4",
+    "eslint": "^8.57.1",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.5.4"
+  }
+}

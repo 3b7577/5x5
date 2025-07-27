@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
-import imagesRoute from './routes/images.ts';
+import imagesRoute from './routes/images.js';
 
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
@@ -10,7 +10,6 @@ const buildServer = async () => {
     logger: true,
   });
 
-  // Register Swagger
   await server.register(swagger, {
     openapi: {
       openapi: '3.0.0',
@@ -28,7 +27,6 @@ const buildServer = async () => {
     },
   });
 
-  // Register Swagger UI
   await server.register(swaggerUi, {
     routePrefix: '/documentation',
     uiConfig: {
@@ -45,18 +43,10 @@ const buildServer = async () => {
     },
     staticCSP: true,
     transformStaticCSP: (header) => header,
-    transformSpecification: (swaggerObject, request, reply) => {
-      return swaggerObject;
-    },
+    transformSpecification: (swaggerObject) => swaggerObject,
     transformSpecificationClone: true,
   });
 
-  // Health check route
-  server.get('/ping', async () => {
-    return { ok: true };
-  });
-
-  // Register routes
   server.register(imagesRoute);
 
   return server;

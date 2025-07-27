@@ -1,17 +1,25 @@
 {
   "name": "5x5",
   "version": "0.0.1",
-  "main": "index.js",
   "type": "module",
+  "packageManager": "npm@10.0.0",
+  "workspaces": [
+    "api",
+    "web"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "start": "node dist/api/index.js",
-    "dev": "tsx watch api/index.ts",
-    "lint": "eslint . --ext .ts",
-    "format": "prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "db:generate": "drizzle-kit generate --config=.drizzle.config.ts",
-    "db:migrate": "drizzle-kit push --config=.drizzle.config.ts",
+    "build": "turbo build",
+    "start": "turbo start",
+    "dev": "turbo dev",
+    "dev:api": "turbo dev --filter=api",
+    "dev:web": "turbo dev --filter=web",
+    "web:build": "turbo build --filter=web",
+    "web:preview": "turbo preview --filter=web",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "test": "turbo test",
+    "db:generate": "turbo db:generate",
+    "db:migrate": "turbo db:migrate",
     "build:rust": "cargo build --manifest-path generator/Cargo.toml --release",
     "gen:dev": "cargo run --manifest-path generator/Cargo.toml",
     "gen:run": "cargo run --release --manifest-path generator/Cargo.toml",
@@ -21,25 +29,10 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "@fastify/swagger": "^9.5.1",
-    "@fastify/swagger-ui": "^5.2.3",
-    "drizzle-orm": "^0.44.2",
-    "fastify": "^5.4.0",
-    "fastify-cli": "^7.4.0",
-    "pg": "^8.16.3",
-    "zod": "^3.25.67"
-  },
   "devDependencies": {
-    "@types/node": "^24.0.10",
-    "@types/pg": "^8.15.4",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "drizzle-kit": "^0.31.4",
-    "eslint": "^8.57.1",
-    "prettier": "^3.6.2",
+    "concurrently": "^8.2.2",
     "ts-node-dev": "^2.0.0",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "tsc-alias": "^1.8.16",
+    "turbo": "^2.5.5"
   }
 }
