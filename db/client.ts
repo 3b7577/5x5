@@ -1,11 +1,13 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
 import * as schema from './schema.js';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../.env' });
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-function getDb() {
+export function getDb() {
   if (!_db) {
     if (!process.env.DATABASE_URL) {
       throw new Error('DATABASE_URL is not set');
@@ -19,8 +21,4 @@ function getDb() {
   return _db;
 }
 
-export const db = new Proxy({} as ReturnType<typeof drizzle>, {
-  get(target, prop) {
-    return getDb()[prop as keyof ReturnType<typeof drizzle>];
-  },
-});
+export const db = getDb();
