@@ -2,7 +2,19 @@ import { FastifyPluginAsync } from 'fastify';
 import { db } from '../../db/client.js';
 import { bw25 } from '../../db/schema.js';
 import { TAGS } from '@shared/tags.js';
-import { and, asc, desc, eq, gte, lte, or, SQL, sql } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  desc,
+  eq,
+  gt,
+  gte,
+  lt,
+  lte,
+  or,
+  SQL,
+  sql,
+} from 'drizzle-orm';
 
 type GET_IMAGES_QUERY = {
   tags?: string;
@@ -109,7 +121,6 @@ const imagesRoute: FastifyPluginAsync = async (fastify) => {
         sortBy = 'blackCnt',
         sortOrder = 'asc',
       } = req.query as GET_IMAGES_QUERY;
-
       try {
         const conditions: (SQL<unknown> | undefined)[] = [
           gte(bw25.blackCnt, densityMin),
@@ -135,7 +146,7 @@ const imagesRoute: FastifyPluginAsync = async (fastify) => {
         }
 
         const orderDirection = sortOrder === 'asc' ? asc : desc;
-        const cursorDirection = sortOrder === 'asc' ? gte : lte;
+        const cursorDirection = sortOrder === 'asc' ? gt : lt;
 
         const order =
           sortBy === 'blackCnt'
