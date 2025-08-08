@@ -1,25 +1,25 @@
-import { create } from 'zustand';
-import type { DensityRange } from '@/types';
 import type { Tag } from '@shared/tags';
+import { create } from 'zustand';
+
+import type { Range } from '@/types';
 
 interface IFiltersValues {
-  density: DensityRange;
+  density: Range;
   selectedTags: Tag['key'][];
 }
 interface IFiltersStore extends IFiltersValues {
-  setDensity: (range: DensityRange) => void;
+  setDensity: (range: Range) => void;
   toggleTag: (tagKey: Tag['key']) => void;
-  resetDensity: () => void;
-  resetTags: () => void;
-  resetAll: () => void;
+  resetFilters: () => void;
 }
 
-const FiltersStoreValues: IFiltersValues = {
+const filtersStoreValues: IFiltersValues = {
   density: [0, 25],
   selectedTags: [],
 };
+
 const useFiltersStore = create<IFiltersStore>((set) => ({
-  ...FiltersStoreValues,
+  ...filtersStoreValues,
   setDensity: (range) => set({ density: range }),
   toggleTag: (tagKey) =>
     set((state) => {
@@ -29,9 +29,7 @@ const useFiltersStore = create<IFiltersStore>((set) => ({
 
       return { selectedTags };
     }),
-  resetDensity: () => set({ density: FiltersStoreValues.density }),
-  resetTags: () => set({ selectedTags: FiltersStoreValues.selectedTags }),
-  resetAll: () => set(FiltersStoreValues),
+  resetFilters: () => set(filtersStoreValues),
 }));
 
 export default useFiltersStore;

@@ -1,16 +1,21 @@
 import { type FC } from 'react';
-import PatternsGrid from './layouts/PatternsGrid';
+
+import { useThemeEffect } from '@/hooks/useThemeEffect';
+
+import PatternsGridLayout from './layouts/PatternsGrid';
 import Sidebar from './layouts/Sidebar';
 import Toolbar from './layouts/Toolbar';
 
 const App: FC = () => {
+  useThemeEffect();
+
   return (
-    <div className='flex h-screen bg-gray-50'>
+    <div className='bg-background flex h-screen'>
       <Sidebar />
 
-      <div className='flex flex-col'>
+      <div className='flex flex-1 flex-col'>
         <Toolbar />
-        <PatternsGrid />
+        <PatternsGridLayout />
       </div>
     </div>
   );
