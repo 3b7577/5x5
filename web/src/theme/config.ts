@@ -1,40 +1,18 @@
-import type { ThemeVariant } from '@/stores/useThemeStore';
-
+export type ThemeVariant =
+  | 'green-crt'
+  | 'amber-crt'
+  | 'blue-crt'
+  | 'purple-crt'
+  | 'red-crt';
 export interface ThemeConfig {
   label: string;
   color: string;
   bgColor: string;
   pattern: number[][];
-  type: 'crt' | 'light' | 'modern';
   loadingColors: {
     primary: string;
     secondary: string;
     background: string;
-  };
-  styles: {
-    // Layout shadows
-    layoutShadow: string;
-    dropdownShadow: string;
-    // Interaction styles
-    canvasHover: string;
-    sliderClass: string;
-    // Typography styles
-    title: string;
-    subtitle: string;
-    body: string;
-    sectionHeader: string;
-    // UI element styles
-    card: string;
-    cardBorder: string;
-    button: string;
-    patternCard: string;
-    // Toolbar specific styles
-    appTitle: string;
-    filterBadge: string;
-    countText: string;
-    themeButton: string;
-    dropdownItem: string;
-    activeDropdownItem: string;
   };
   cssVars: {
     background: string;
@@ -67,12 +45,11 @@ export interface ThemeConfig {
   };
 }
 
-export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
+export const THEME_CONFIGS: Record<ThemeVariant, ThemeConfig> = {
   'green-crt': {
     label: 'GREEN CRT',
     color: '#00ff41',
     bgColor: '#000800',
-    type: 'crt',
     pattern: [
       [1, 0, 1, 0, 1],
       [0, 1, 0, 1, 0],
@@ -85,64 +62,49 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
       secondary: '#00cc00',
       background: '#000800',
     },
-    styles: {
-      layoutShadow: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      dropdownShadow: 'shadow-[4px_4px_0px_0px_var(--border)]',
-      canvasHover: 'hover:brightness-110 hover:contrast-110',
-      sliderClass: 'retro-slider',
-      title: 'font-mono uppercase [text-shadow:_0_0_3px_currentColor]',
-      subtitle: 'font-mono uppercase [text-shadow:_0_0_1px_currentColor]',
-      body: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      sectionHeader: 'text-muted-foreground uppercase',
-      card: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      cardBorder: '',
-      button: 'font-mono uppercase',
-      appTitle: 'font-mono text-lg [text-shadow:_0_0_3px_currentColor]',
-      filterBadge: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      countText: 'font-mono uppercase [text-shadow:_0_0_2px_currentColor]',
-      themeButton:
-        'font-mono uppercase shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_var(--border)]',
-      dropdownItem:
-        'rounded-none font-mono uppercase hover:translate-x-[-1px] hover:translate-y-[-1px] hover:border-current hover:shadow-[2px_2px_0px_0px_var(--border)]',
-      activeDropdownItem: 'shadow-[2px_2px_0px_0px_var(--border)]',
-      patternCard:
-        'shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:brightness-110',
-    },
     cssVars: {
       background: '#000800',
-      foreground: '#00ff41',
-      card: '#001a00',
-      cardForeground: '#00dd00',
-      popover: '#001a00',
-      popoverForeground: '#00dd00',
-      primary: '#00ff41',
+      foreground: '#00E676',
+
+      card: '#001408',
+      cardForeground: '#98ffcb',
+
+      popover: '#001A0C',
+      popoverForeground: '#98ffcb',
+
+      primary: '#00FF41',
       primaryForeground: '#000800',
-      secondary: '#004400',
-      secondaryForeground: '#00cc00',
-      muted: '#002200',
-      mutedForeground: '#008800',
-      accent: '#00ffff',
-      accentForeground: '#000800',
-      destructive: '#ff0040',
-      destructiveForeground: '#ffffff',
-      border: '#006600',
-      input: '#002200',
-      ring: '#00ff41',
-      sidebar: '#000800',
-      sidebarForeground: '#00dd00',
-      sidebarPrimary: '#00ff41',
+
+      secondary: '#073b18',
+      secondaryForeground: '#7dffa9',
+
+      muted: '#052e1a',
+      mutedForeground: '#3bd37f',
+
+      accent: '#00FFFF',
+      accentForeground: '#001010',
+
+      destructive: '#FF003C',
+      destructiveForeground: '#000800',
+
+      border: '#0c4d26',
+      input: '#0c4d26',
+      ring: '#00FF41',
+
+      sidebar: '#001006',
+      sidebarForeground: '#90ffb8',
+      sidebarPrimary: '#00cc66',
       sidebarPrimaryForeground: '#000800',
-      sidebarAccent: '#004400',
-      sidebarAccentForeground: '#00cc00',
-      sidebarBorder: '#006600',
-      sidebarRing: '#00ff41',
+      sidebarAccent: '#6A00FF',
+      sidebarAccentForeground: '#000A0A',
+      sidebarBorder: '#0c4d26',
+      sidebarRing: '#00FF41',
     },
   },
   'amber-crt': {
     label: 'AMBER CRT',
     color: '#ffaa00',
     bgColor: '#0a0400',
-    type: 'crt',
     pattern: [
       [0, 1, 1, 1, 0],
       [1, 0, 1, 0, 1],
@@ -155,55 +117,41 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
       secondary: '#cc8800',
       background: '#0a0400',
     },
-    styles: {
-      layoutShadow: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      dropdownShadow: 'shadow-[4px_4px_0px_0px_var(--border)]',
-      canvasHover: 'hover:brightness-110 hover:contrast-110',
-      sliderClass: 'retro-slider',
-      title: 'font-mono uppercase [text-shadow:_0_0_3px_currentColor]',
-      subtitle: 'font-mono uppercase [text-shadow:_0_0_1px_currentColor]',
-      body: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      sectionHeader: 'text-muted-foreground uppercase',
-      card: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      cardBorder: '',
-      button: 'font-mono uppercase',
-      appTitle: 'font-mono text-lg [text-shadow:_0_0_3px_currentColor]',
-      filterBadge: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      countText: 'font-mono uppercase [text-shadow:_0_0_2px_currentColor]',
-      themeButton:
-        'font-mono uppercase shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_var(--border)]',
-      dropdownItem:
-        'rounded-none font-mono uppercase hover:translate-x-[-1px] hover:translate-y-[-1px] hover:border-current hover:shadow-[2px_2px_0px_0px_var(--border)]',
-      activeDropdownItem: 'shadow-[2px_2px_0px_0px_var(--border)]',
-      patternCard:
-        'shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:brightness-110',
-    },
     cssVars: {
       background: '#0a0400',
-      foreground: '#ffaa00',
-      card: '#1a0f00',
-      cardForeground: '#dd9900',
-      popover: '#1a0f00',
-      popoverForeground: '#dd9900',
+      foreground: '#ffbb33',
+
+      card: '#1a0d00',
+      cardForeground: '#ffcc66',
+
+      popover: '#1a0d00',
+      popoverForeground: '#ffcc66',
+
       primary: '#ffaa00',
       primaryForeground: '#0a0400',
+
       secondary: '#442200',
-      secondaryForeground: '#cc8800',
+      secondaryForeground: '#ffb84d',
+
       muted: '#221100',
-      mutedForeground: '#886600',
-      accent: '#ffff00',
+      mutedForeground: '#aa7722',
+
+      accent: '#fff066',
       accentForeground: '#0a0400',
+
       destructive: '#ff4040',
-      destructiveForeground: '#ffffff',
+      destructiveForeground: '#0a0400',
+
       border: '#664400',
-      input: '#221100',
+      input: '#332200',
       ring: '#ffaa00',
+
       sidebar: '#0a0400',
-      sidebarForeground: '#dd9900',
+      sidebarForeground: '#ffcc66',
       sidebarPrimary: '#ffaa00',
       sidebarPrimaryForeground: '#0a0400',
-      sidebarAccent: '#442200',
-      sidebarAccentForeground: '#cc8800',
+      sidebarAccent: '#5c2e00',
+      sidebarAccentForeground: '#ffb84d',
       sidebarBorder: '#664400',
       sidebarRing: '#ffaa00',
     },
@@ -212,7 +160,6 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
     label: 'BLUE CRT',
     color: '#4488ff',
     bgColor: '#000408',
-    type: 'crt',
     pattern: [
       [1, 1, 0, 1, 1],
       [1, 0, 0, 0, 1],
@@ -225,55 +172,41 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
       secondary: '#2266cc',
       background: '#000408',
     },
-    styles: {
-      layoutShadow: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      dropdownShadow: 'shadow-[4px_4px_0px_0px_var(--border)]',
-      canvasHover: 'hover:brightness-110 hover:contrast-110',
-      sliderClass: 'retro-slider',
-      title: 'font-mono uppercase [text-shadow:_0_0_3px_currentColor]',
-      subtitle: 'font-mono uppercase [text-shadow:_0_0_1px_currentColor]',
-      body: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      sectionHeader: 'text-muted-foreground uppercase',
-      card: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      cardBorder: '',
-      button: 'font-mono uppercase',
-      appTitle: 'font-mono text-lg [text-shadow:_0_0_3px_currentColor]',
-      filterBadge: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      countText: 'font-mono uppercase [text-shadow:_0_0_2px_currentColor]',
-      themeButton:
-        'font-mono uppercase shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_var(--border)]',
-      dropdownItem:
-        'rounded-none font-mono uppercase hover:translate-x-[-1px] hover:translate-y-[-1px] hover:border-current hover:shadow-[2px_2px_0px_0px_var(--border)]',
-      activeDropdownItem: 'shadow-[2px_2px_0px_0px_var(--border)]',
-      patternCard:
-        'shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:brightness-110',
-    },
     cssVars: {
       background: '#000408',
-      foreground: '#4488ff',
-      card: '#001122',
-      cardForeground: '#3377dd',
-      popover: '#001122',
-      popoverForeground: '#3377dd',
+      foreground: '#66a3ff',
+
+      card: '#001124',
+      cardForeground: '#99c2ff',
+
+      popover: '#001124',
+      popoverForeground: '#99c2ff',
+
       primary: '#4488ff',
       primaryForeground: '#000408',
+
       secondary: '#002244',
-      secondaryForeground: '#2266cc',
+      secondaryForeground: '#66a3ff',
+
       muted: '#001122',
-      mutedForeground: '#1155aa',
+      mutedForeground: '#3380cc',
+
       accent: '#00ddff',
       accentForeground: '#000408',
+
       destructive: '#ff4040',
-      destructiveForeground: '#ffffff',
+      destructiveForeground: '#000408',
+
       border: '#224466',
-      input: '#001122',
+      input: '#001830',
       ring: '#4488ff',
+
       sidebar: '#000408',
-      sidebarForeground: '#3377dd',
+      sidebarForeground: '#99c2ff',
       sidebarPrimary: '#4488ff',
       sidebarPrimaryForeground: '#000408',
-      sidebarAccent: '#002244',
-      sidebarAccentForeground: '#2266cc',
+      sidebarAccent: '#003366',
+      sidebarAccentForeground: '#66a3ff',
       sidebarBorder: '#224466',
       sidebarRing: '#4488ff',
     },
@@ -282,7 +215,6 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
     label: 'PURPLE CRT',
     color: '#cc88ff',
     bgColor: '#040008',
-    type: 'crt',
     pattern: [
       [0, 1, 0, 1, 0],
       [1, 1, 1, 1, 1],
@@ -295,55 +227,41 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
       secondary: '#aa66cc',
       background: '#040008',
     },
-    styles: {
-      layoutShadow: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      dropdownShadow: 'shadow-[4px_4px_0px_0px_var(--border)]',
-      canvasHover: 'hover:brightness-110 hover:contrast-110',
-      sliderClass: 'retro-slider',
-      title: 'font-mono uppercase [text-shadow:_0_0_3px_currentColor]',
-      subtitle: 'font-mono uppercase [text-shadow:_0_0_1px_currentColor]',
-      body: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      sectionHeader: 'text-muted-foreground uppercase',
-      card: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      cardBorder: '',
-      button: 'font-mono uppercase',
-      appTitle: 'font-mono text-lg [text-shadow:_0_0_3px_currentColor]',
-      filterBadge: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      countText: 'font-mono uppercase [text-shadow:_0_0_2px_currentColor]',
-      themeButton:
-        'font-mono uppercase shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_var(--border)]',
-      dropdownItem:
-        'rounded-none font-mono uppercase hover:translate-x-[-1px] hover:translate-y-[-1px] hover:border-current hover:shadow-[2px_2px_0px_0px_var(--border)]',
-      activeDropdownItem: 'shadow-[2px_2px_0px_0px_var(--border)]',
-      patternCard:
-        'shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:brightness-110',
-    },
     cssVars: {
       background: '#040008',
-      foreground: '#cc88ff',
+      foreground: '#d4a6ff',
+
       card: '#110022',
-      cardForeground: '#bb77dd',
+      cardForeground: '#e0b8ff',
+
       popover: '#110022',
-      popoverForeground: '#bb77dd',
+      popoverForeground: '#e0b8ff',
+
       primary: '#cc88ff',
       primaryForeground: '#040008',
+
       secondary: '#220044',
-      secondaryForeground: '#aa66cc',
+      secondaryForeground: '#d4a6ff',
+
       muted: '#110022',
-      mutedForeground: '#7744aa',
+      mutedForeground: '#a366cc',
+
       accent: '#ff88dd',
       accentForeground: '#040008',
+
       destructive: '#ff4040',
-      destructiveForeground: '#ffffff',
+      destructiveForeground: '#040008',
+
       border: '#442266',
-      input: '#110022',
+      input: '#1a0033',
       ring: '#cc88ff',
+
       sidebar: '#040008',
-      sidebarForeground: '#bb77dd',
+      sidebarForeground: '#e0b8ff',
       sidebarPrimary: '#cc88ff',
       sidebarPrimaryForeground: '#040008',
-      sidebarAccent: '#220044',
-      sidebarAccentForeground: '#aa66cc',
+      sidebarAccent: '#330055',
+      sidebarAccentForeground: '#d4a6ff',
       sidebarBorder: '#442266',
       sidebarRing: '#cc88ff',
     },
@@ -352,7 +270,6 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
     label: 'RED CRT',
     color: '#ff4444',
     bgColor: '#080000',
-    type: 'crt',
     pattern: [
       [1, 1, 1, 1, 1],
       [1, 0, 0, 0, 1],
@@ -365,331 +282,43 @@ export const themeConfig: Record<ThemeVariant, ThemeConfig> = {
       secondary: '#cc2222',
       background: '#080000',
     },
-    styles: {
-      layoutShadow: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      dropdownShadow: 'shadow-[4px_4px_0px_0px_var(--border)]',
-      canvasHover: 'hover:brightness-110 hover:contrast-110',
-      sliderClass: 'retro-slider',
-      title: 'font-mono uppercase [text-shadow:_0_0_3px_currentColor]',
-      subtitle: 'font-mono uppercase [text-shadow:_0_0_1px_currentColor]',
-      body: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      sectionHeader: 'text-muted-foreground uppercase',
-      card: 'shadow-[3px_3px_0px_0px_var(--border)]',
-      cardBorder: '',
-      button: 'font-mono uppercase',
-      appTitle: 'font-mono text-lg [text-shadow:_0_0_3px_currentColor]',
-      filterBadge: 'font-mono [text-shadow:_0_0_1px_currentColor]',
-      countText: 'font-mono uppercase [text-shadow:_0_0_2px_currentColor]',
-      themeButton:
-        'font-mono uppercase shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_var(--border)] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_var(--border)]',
-      dropdownItem:
-        'rounded-none font-mono uppercase hover:translate-x-[-1px] hover:translate-y-[-1px] hover:border-current hover:shadow-[2px_2px_0px_0px_var(--border)]',
-      activeDropdownItem: 'shadow-[2px_2px_0px_0px_var(--border)]',
-      patternCard:
-        'shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:brightness-110',
-    },
     cssVars: {
       background: '#080000',
-      foreground: '#ff4444',
+      foreground: '#ff6666',
+
       card: '#220000',
-      cardForeground: '#dd3333',
+      cardForeground: '#ff9999',
+
       popover: '#220000',
-      popoverForeground: '#dd3333',
+      popoverForeground: '#ff9999',
+
       primary: '#ff4444',
       primaryForeground: '#080000',
+
       secondary: '#440000',
-      secondaryForeground: '#cc2222',
+      secondaryForeground: '#ff6666',
+
       muted: '#220000',
-      mutedForeground: '#aa1111',
+      mutedForeground: '#cc5555',
+
       accent: '#ffaa44',
       accentForeground: '#080000',
+
       destructive: '#ff6666',
-      destructiveForeground: '#ffffff',
+      destructiveForeground: '#080000',
+
       border: '#664444',
-      input: '#220000',
+      input: '#330000',
       ring: '#ff4444',
+
       sidebar: '#080000',
-      sidebarForeground: '#dd3333',
+      sidebarForeground: '#ff9999',
       sidebarPrimary: '#ff4444',
       sidebarPrimaryForeground: '#080000',
-      sidebarAccent: '#440000',
-      sidebarAccentForeground: '#cc2222',
+      sidebarAccent: '#550000',
+      sidebarAccentForeground: '#ff6666',
       sidebarBorder: '#664444',
       sidebarRing: '#ff4444',
-    },
-  },
-
-  'green-light': {
-    label: 'Green Light',
-    color: '#22c55e',
-    bgColor: '#f0fdf4',
-    type: 'light',
-    pattern: [
-      [0, 1, 0, 1, 0],
-      [1, 0, 1, 0, 1],
-      [0, 1, 0, 1, 0],
-      [1, 0, 1, 0, 1],
-      [0, 1, 0, 1, 0],
-    ],
-    loadingColors: {
-      primary: '#22c55e',
-      secondary: '#16a34a',
-      background: '#f0fdf4',
-    },
-    styles: {
-      layoutShadow: 'shadow-lg',
-      dropdownShadow: 'shadow-xl',
-      canvasHover: 'hover:opacity-80',
-      sliderClass: '',
-      title: 'font-sans capitalize',
-      subtitle: 'font-sans',
-      body: 'font-sans',
-      sectionHeader: 'text-muted-foreground capitalize',
-      card: 'rounded-md shadow-md',
-      cardBorder: 'rounded-md',
-      button: 'font-sans capitalize',
-      appTitle: 'font-sans text-xl',
-      filterBadge: 'font-sans',
-      countText: 'font-sans font-bold',
-      themeButton: 'font-sans capitalize shadow-md hover:shadow-lg',
-      dropdownItem:
-        'rounded-md font-sans capitalize hover:border-current hover:shadow-md',
-      activeDropdownItem: 'shadow-md',
-      patternCard: 'rounded-md shadow-md hover:scale-[1.02] hover:shadow-lg',
-    },
-    cssVars: {
-      background: '#ffffff',
-      foreground: '#0f172a',
-      card: '#f0fdf4',
-      cardForeground: '#166534',
-      popover: '#ffffff',
-      popoverForeground: '#0f172a',
-      primary: '#22c55e',
-      primaryForeground: '#ffffff',
-      secondary: '#f0fdf4',
-      secondaryForeground: '#166534',
-      muted: '#f8fafc',
-      mutedForeground: '#64748b',
-      accent: '#16a34a',
-      accentForeground: '#ffffff',
-      destructive: '#ef4444',
-      destructiveForeground: '#ffffff',
-      border: '#e2e8f0',
-      input: '#ffffff',
-      ring: '#22c55e',
-      sidebar: '#f9fafb',
-      sidebarForeground: '#166534',
-      sidebarPrimary: '#22c55e',
-      sidebarPrimaryForeground: '#ffffff',
-      sidebarAccent: '#f0fdf4',
-      sidebarAccentForeground: '#166534',
-      sidebarBorder: '#e5e7eb',
-      sidebarRing: '#22c55e',
-    },
-  },
-  'amber-light': {
-    label: 'Amber Light',
-    color: '#f59e0b',
-    bgColor: '#fffbeb',
-    type: 'light',
-    pattern: [
-      [0, 1, 1, 1, 0],
-      [1, 0, 1, 0, 1],
-      [1, 1, 0, 1, 1],
-      [1, 0, 1, 0, 1],
-      [0, 1, 1, 1, 0],
-    ],
-    loadingColors: {
-      primary: '#f59e0b',
-      secondary: '#d97706',
-      background: '#fffbeb',
-    },
-    styles: {
-      layoutShadow: 'shadow-lg',
-      dropdownShadow: 'shadow-xl',
-      canvasHover: 'hover:opacity-80',
-      sliderClass: '',
-      title: 'font-sans capitalize',
-      subtitle: 'font-sans',
-      body: 'font-sans',
-      sectionHeader: 'text-muted-foreground capitalize',
-      card: 'rounded-md shadow-md',
-      cardBorder: 'rounded-md',
-      button: 'font-sans capitalize',
-      appTitle: 'font-sans text-xl',
-      filterBadge: 'font-sans',
-      countText: 'font-sans font-bold',
-      themeButton: 'font-sans capitalize shadow-md hover:shadow-lg',
-      dropdownItem:
-        'rounded-md font-sans capitalize hover:border-current hover:shadow-md',
-      activeDropdownItem: 'shadow-md',
-      patternCard: 'rounded-md shadow-md hover:scale-[1.02] hover:shadow-lg',
-    },
-    cssVars: {
-      background: '#ffffff',
-      foreground: '#0f172a',
-      card: '#fffbeb',
-      cardForeground: '#92400e',
-      popover: '#ffffff',
-      popoverForeground: '#0f172a',
-      primary: '#f59e0b',
-      primaryForeground: '#ffffff',
-      secondary: '#fffbeb',
-      secondaryForeground: '#92400e',
-      muted: '#f8fafc',
-      mutedForeground: '#64748b',
-      accent: '#f59e0b',
-      accentForeground: '#ffffff',
-      destructive: '#ef4444',
-      destructiveForeground: '#ffffff',
-      border: '#e2e8f0',
-      input: '#ffffff',
-      ring: '#f59e0b',
-      sidebar: '#f9fafb',
-      sidebarForeground: '#92400e',
-      sidebarPrimary: '#f59e0b',
-      sidebarPrimaryForeground: '#ffffff',
-      sidebarAccent: '#fffbeb',
-      sidebarAccentForeground: '#92400e',
-      sidebarBorder: '#e5e7eb',
-      sidebarRing: '#f59e0b',
-    },
-  },
-  'blue-light': {
-    label: 'Blue Light',
-    color: '#3b82f6',
-    bgColor: '#eff6ff',
-    type: 'light',
-    pattern: [
-      [1, 1, 0, 1, 1],
-      [1, 0, 0, 0, 1],
-      [0, 0, 1, 0, 0],
-      [1, 0, 0, 0, 1],
-      [1, 1, 0, 1, 1],
-    ],
-    loadingColors: {
-      primary: '#3b82f6',
-      secondary: '#2563eb',
-      background: '#eff6ff',
-    },
-    styles: {
-      layoutShadow: 'shadow-lg',
-      dropdownShadow: 'shadow-xl',
-      canvasHover: 'hover:opacity-80',
-      sliderClass: '',
-      title: 'font-sans capitalize',
-      subtitle: 'font-sans',
-      body: 'font-sans',
-      sectionHeader: 'text-muted-foreground capitalize',
-      card: 'rounded-md shadow-md',
-      cardBorder: 'rounded-md',
-      button: 'font-sans capitalize',
-      appTitle: 'font-sans text-xl',
-      filterBadge: 'font-sans',
-      countText: 'font-sans font-bold',
-      themeButton: 'font-sans capitalize shadow-md hover:shadow-lg',
-      dropdownItem:
-        'rounded-md font-sans capitalize hover:border-current hover:shadow-md',
-      activeDropdownItem: 'shadow-md',
-      patternCard: 'rounded-md shadow-md hover:scale-[1.02] hover:shadow-lg',
-    },
-    cssVars: {
-      background: '#ffffff',
-      foreground: '#0f172a',
-      card: '#eff6ff',
-      cardForeground: '#1e40af',
-      popover: '#ffffff',
-      popoverForeground: '#0f172a',
-      primary: '#3b82f6',
-      primaryForeground: '#ffffff',
-      secondary: '#eff6ff',
-      secondaryForeground: '#1e40af',
-      muted: '#f8fafc',
-      mutedForeground: '#64748b',
-      accent: '#3b82f6',
-      accentForeground: '#ffffff',
-      destructive: '#ef4444',
-      destructiveForeground: '#ffffff',
-      border: '#e2e8f0',
-      input: '#ffffff',
-      ring: '#3b82f6',
-      sidebar: '#f9fafb',
-      sidebarForeground: '#1e40af',
-      sidebarPrimary: '#3b82f6',
-      sidebarPrimaryForeground: '#ffffff',
-      sidebarAccent: '#eff6ff',
-      sidebarAccentForeground: '#1e40af',
-      sidebarBorder: '#e5e7eb',
-      sidebarRing: '#3b82f6',
-    },
-  },
-
-  'modern-dark': {
-    label: 'Modern Dark',
-    color: '#8b5cf6',
-    bgColor: '#0f172a',
-    type: 'modern',
-    pattern: [
-      [0, 1, 1, 1, 0],
-      [1, 0, 0, 0, 1],
-      [1, 0, 1, 0, 1],
-      [1, 0, 0, 0, 1],
-      [0, 1, 1, 1, 0],
-    ],
-    loadingColors: {
-      primary: '#8b5cf6',
-      secondary: '#7c3aed',
-      background: '#0f172a',
-    },
-    styles: {
-      layoutShadow: 'shadow-lg',
-      dropdownShadow: 'shadow-xl',
-      canvasHover: 'hover:opacity-80',
-      sliderClass: '',
-      title: 'font-sans capitalize',
-      subtitle: 'font-sans',
-      body: 'font-sans',
-      sectionHeader: 'text-muted-foreground capitalize',
-      card: 'rounded-md shadow-md',
-      cardBorder: 'rounded-md',
-      button: 'font-sans capitalize',
-      appTitle: 'font-sans text-xl',
-      filterBadge: 'font-sans',
-      countText: 'font-sans font-bold',
-      themeButton: 'font-sans capitalize shadow-md hover:shadow-lg',
-      dropdownItem:
-        'rounded-md font-sans capitalize hover:border-current hover:shadow-md',
-      activeDropdownItem: 'shadow-md',
-      patternCard: 'rounded-md shadow-md hover:scale-[1.02] hover:shadow-lg',
-    },
-    cssVars: {
-      background: '#0f172a',
-      foreground: '#f1f5f9',
-      card: '#1e293b',
-      cardForeground: '#f1f5f9',
-      popover: '#1e293b',
-      popoverForeground: '#f1f5f9',
-      primary: '#8b5cf6',
-      primaryForeground: '#ffffff',
-      secondary: '#334155',
-      secondaryForeground: '#f1f5f9',
-      muted: '#334155',
-      mutedForeground: '#94a3b8',
-      accent: '#64748b',
-      accentForeground: '#ffffff',
-      destructive: '#ef4444',
-      destructiveForeground: '#ffffff',
-      border: '#475569',
-      input: '#334155',
-      ring: '#8b5cf6',
-      sidebar: '#1e293b',
-      sidebarForeground: '#f1f5f9',
-      sidebarPrimary: '#8b5cf6',
-      sidebarPrimaryForeground: '#ffffff',
-      sidebarAccent: '#334155',
-      sidebarAccentForeground: '#f1f5f9',
-      sidebarBorder: '#475569',
-      sidebarRing: '#8b5cf6',
     },
   },
 };

@@ -1,19 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type ThemeVariant =
-  | 'green-crt'
-  | 'amber-crt'
-  | 'blue-crt'
-  | 'purple-crt'
-  | 'red-crt'
-  | 'green-light'
-  | 'amber-light'
-  | 'blue-light'
-  | 'modern-dark';
+import { THEME_CONFIGS, type ThemeConfig, type ThemeVariant } from '@/theme';
 
 interface IThemeStore {
   variant: ThemeVariant;
+  themeConfig: ThemeConfig;
   setTheme: (variant: ThemeVariant) => void;
 }
 
@@ -21,9 +13,10 @@ const useThemeStore = create<IThemeStore>()(
   persist(
     (set) => ({
       variant: 'green-crt',
+      themeConfig: THEME_CONFIGS['green-crt'],
 
       setTheme: (variant: ThemeVariant) => {
-        set({ variant });
+        set({ variant, themeConfig: THEME_CONFIGS[variant] });
       },
     }),
     {

@@ -2,7 +2,6 @@ import { useEffect, useRef, type ComponentRef, type FC } from 'react';
 
 import { cn } from '@/lib/utils';
 import useThemeStore from '@/stores/useThemeStore';
-import { getThemeConfig } from '@/theme';
 import type { PatternMatrix } from '@/types';
 
 interface CanvasPatternProps {
@@ -17,8 +16,7 @@ const CanvasPattern: FC<CanvasPatternProps> = ({
   className = '',
 }) => {
   const canvasRef = useRef<ComponentRef<'canvas'>>(null);
-  const { variant } = useThemeStore();
-  const themeConfig = getThemeConfig(variant);
+  const { themeConfig } = useThemeStore();
   const canvasSize = cellSize * 5;
 
   useEffect(() => {
@@ -65,8 +63,7 @@ const CanvasPattern: FC<CanvasPatternProps> = ({
     <canvas
       ref={canvasRef}
       className={cn(
-        'transition-all',
-        themeConfig.styles.canvasHover,
+        'transition-all hover:brightness-110 hover:contrast-110',
         className,
       )}
       style={{

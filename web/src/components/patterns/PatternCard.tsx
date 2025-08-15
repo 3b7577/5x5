@@ -1,50 +1,30 @@
 import { type FC } from 'react';
 
-import { cn } from '@/lib/utils';
-import useThemeStore from '@/stores/useThemeStore';
-import { useThemeContext } from '@/theme';
+import { formatDensity } from '@/lib/utils';
 import type { Pattern } from '@/types';
 
 import CanvasPattern from './CanvasPattern';
 
-interface PatternCardProps extends Omit<Pattern, 'tags'> {
+interface PatternCardProps {
+  pattern: Pattern;
   onClick?: () => void;
 }
 
-const PatternCard: FC<PatternCardProps> = ({
-  id,
-  pattern,
-  density,
-  onClick,
-}) => {
-  const { variant } = useThemeStore();
-  const {
-    texts,
-    config: { styles },
-  } = useThemeContext(variant);
-
+const PatternCard: FC<PatternCardProps> = ({ pattern, onClick }) => {
   return (
     <div
-      className={cn(
-        'bg-card text-card-foreground border-border flex cursor-pointer flex-col gap-2 rounded-lg border py-3 shadow-sm transition-all',
-        styles.patternCard,
-      )}
+      className='crt-card-lg crt-shadow-base crt-shadow-hover flex cursor-pointer flex-col gap-2 py-3 hover:brightness-110'
       onClick={onClick}
     >
       <div className='flex flex-1 flex-col justify-center gap-2 px-3'>
-        <p className='text-center text-xs font-bold'>{id}</p>
+        <p className='text-center text-xs font-bold'>{pattern.id}</p>
 
         <div className='flex justify-center'>
-          <CanvasPattern pattern={pattern} />
+          <CanvasPattern pattern={pattern.matrix} />
         </div>
 
-        <div
-          className={cn(
-            'text-muted-foreground text-center text-xs font-normal',
-            styles.body,
-          )}
-        >
-          {texts.patternDensity(density)}
+        <div className='crt-caption-center'>
+          {formatDensity(pattern.density)}
         </div>
       </div>
     </div>

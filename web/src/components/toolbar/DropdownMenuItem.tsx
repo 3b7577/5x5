@@ -4,23 +4,20 @@ import { Monitor } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DropdownMenuItem } from '@/components/ui/DropdownMenu';
 import PatternPreview from '@/components/toolbar/PatternPreview';
-import { type ThemeVariant } from '@/stores/useThemeStore';
-import { themeConfig, useThemeContext } from '@/theme';
+import { THEME_CONFIGS, type ThemeVariant } from '@/theme';
 
 interface ThemeDropdownItemProps {
   themeKey: ThemeVariant;
   isActive: boolean;
   onSelect: (theme: ThemeVariant) => void;
-  config: ReturnType<typeof useThemeContext>['config'];
 }
 
 const ThemeDropdownItem: FC<ThemeDropdownItemProps> = ({
   themeKey,
   isActive,
   onSelect,
-  config,
 }) => {
-  const theme = themeConfig[themeKey];
+  const theme = THEME_CONFIGS[themeKey];
 
   return (
     <DropdownMenuItem
@@ -29,10 +26,10 @@ const ThemeDropdownItem: FC<ThemeDropdownItemProps> = ({
         'relative m-1 cursor-pointer border-2 border-transparent px-3 py-2',
         'text-xs font-medium tracking-wide transition-all duration-150',
         'focus:bg-accent focus:text-accent-foreground',
-        config.styles.dropdownItem,
+        'rounded-none font-mono uppercase hover:translate-x-[-1px] hover:translate-y-[-1px] hover:border-current hover:shadow-[2px_2px_0px_0px_var(--border)]',
         isActive && [
           'bg-accent text-accent-foreground border-current',
-          config.styles.activeDropdownItem,
+          'shadow-[2px_2px_0px_0px_var(--border)]',
         ],
       )}
     >

@@ -1,38 +1,26 @@
 import { type FC } from 'react';
 import { TAGS } from '@shared/tags';
 
-import { cn, groupBy } from '@/lib/utils';
+import { cn, groupBy, pluralize } from '@/lib/utils';
 import Badge from '@/components/ui/Badge';
 import useFiltersStore from '@/stores/useFiltersStore';
-import useThemeStore from '@/stores/useThemeStore';
-import { useThemeContext } from '@/theme';
 
 const tagsByCategory = groupBy(TAGS, 'category');
 
 const TagCategories: FC = () => {
   const { selectedTags, toggleTag } = useFiltersStore();
-  const { variant } = useThemeStore();
-  const { texts, config } = useThemeContext(variant);
-  const { styles } = config;
 
   return (
     <div className='space-y-4'>
       {Object.entries(tagsByCategory).map(([category, tags]) => (
-        <div
-          key={category}
-          className={`border-border border-2 p-3 ${config.styles.card}`}
-        >
+        <div key={category} className='border-border border-2 p-3'>
           <div className='mb-3 flex items-center justify-between'>
-            <h3
-              className={`text-sidebar-foreground text-sm font-bold tracking-wide ${styles.title}`}
-            >
+            <h3 className='text-sidebar-foreground crt-heading-sm tracking-wide'>
               {category}
             </h3>
 
-            <p
-              className={`text-muted-foreground text-xs font-normal ${styles.body}`}
-            >
-              {texts.tagCount(tags.length)}
+            <p className='crt-caption-muted'>
+              {pluralize('TAG', tags.length, true)}
             </p>
           </div>
 
@@ -49,11 +37,10 @@ const TagCategories: FC = () => {
                     isSelected
                       ? 'bg-accent text-accent-foreground border-accent'
                       : 'border-border hover:bg-secondary hover:text-secondary-foreground',
-                    config.styles.cardBorder,
                   )}
                   onClick={() => toggleTag(tag.key)}
                 >
-                  <span className={`font-medium break-words ${styles.body}`}>
+                  <span className='crt-caption font-mono font-medium break-words'>
                     {tag.label}
                   </span>
                 </Badge>

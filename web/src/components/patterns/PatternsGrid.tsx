@@ -17,9 +17,7 @@ const PatternsGrid: FC = () => {
       {patterns.map((pattern) => (
         <PatternCard
           key={pattern.id}
-          id={pattern.id}
-          pattern={pattern.pattern}
-          density={pattern.density}
+          pattern={pattern}
           onClick={() => handlePatternClick(pattern.id)}
         />
       ))}

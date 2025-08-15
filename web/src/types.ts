@@ -1,15 +1,16 @@
+import type { TagKey } from '@shared/tags';
+
 export type Range = [number, number];
 export type Matrix<T> = T[][];
 export type PatternMatrix = Matrix<number>;
 
 export interface Pattern {
   id: number;
-  pattern: PatternMatrix;
+  matrix: PatternMatrix;
   density: number;
-  tags: string[];
+  tags: TagKey[];
 }
 
-// API Response types
 export interface ApiImage {
   imgBits: number;
   tagBits: number;

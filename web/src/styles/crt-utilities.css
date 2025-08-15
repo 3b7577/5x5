@@ -1,0 +1,45 @@
+@layer utilities {
+  .crt-heading-lg {
+    @apply font-mono text-xl font-bold uppercase [text-shadow:_0_0_3px_currentColor];
+  }
+
+  .crt-heading-sm {
+    @apply font-mono text-sm font-bold uppercase [text-shadow:_0_0_3px_currentColor];
+  }
+
+  .crt-note {
+    @apply font-mono text-xs [text-shadow:_0_0_1px_currentColor];
+  }
+
+  .crt-label {
+    @apply font-mono uppercase [text-shadow:_0_0_2px_currentColor];
+  }
+
+  .crt-card {
+    @apply bg-card/40 rounded-md border p-3;
+  }
+
+  .crt-card-lg {
+    @apply bg-card text-card-foreground border-border rounded-lg border shadow-sm;
+  }
+
+  .crt-shadow-base {
+    @apply [box-shadow:3px_3px_0px_0px_var(--border)];
+  }
+
+  .crt-shadow-hover {
+    @apply hover:translate-x-[-1px] hover:translate-y-[-1px] hover:[box-shadow:4px_4px_0px_0px_var(--border)];
+  }
+
+  .crt-caption {
+    @apply font-mono text-xs font-normal [text-shadow:_0_0_1px_currentColor];
+  }
+
+  .crt-caption-muted {
+    @apply text-muted-foreground font-mono text-xs font-normal [text-shadow:_0_0_1px_currentColor];
+  }
+
+  .crt-caption-center {
+    @apply text-muted-foreground text-center font-mono text-xs font-normal [text-shadow:_0_0_1px_currentColor];
+  }
+}

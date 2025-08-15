@@ -1,4 +1,4 @@
-import { TAGS } from '@shared/tags';
+import { TAGS, type TagKey } from '@shared/tags';
 
 import type { ApiResponse, PatternMatrix } from '@/types';
 
@@ -25,8 +25,8 @@ export const imgBitsToPattern = (imgBits: number): PatternMatrix => {
   return pattern;
 };
 
-export const tagBitsToTags = (tagBits: number): string[] => {
-  const tags: string[] = [];
+export const tagBitsToTags = (tagBits: number): TagKey[] => {
+  const tags: TagKey[] = [];
 
   for (const tag of TAGS) {
     if ((BigInt(tagBits) & tag.bit) === tag.bit) {

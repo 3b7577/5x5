@@ -24,7 +24,7 @@ interface IPatternsStore extends IPatternsStoreValues {
 
 const apiImageToPattern = (apiImage: ApiImage): Pattern => ({
   id: apiImage.imgBits,
-  pattern: imgBitsToPattern(apiImage.imgBits),
+  matrix: imgBitsToPattern(apiImage.imgBits),
   density: apiImage.blackCnt,
   tags: tagBitsToTags(apiImage.tagBits),
 });

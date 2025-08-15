@@ -20,24 +20,24 @@ export const omit = <T extends Record<string, unknown>, K extends keyof T>(
   >;
 
 export function groupBy<T extends Record<string, unknown>, K extends keyof T>(
-  items: T[],
+  items: ReadonlyArray<T>,
   by: K,
 ): Record<string, T[]>;
 
 export function groupBy<T extends Record<string, unknown>, K extends keyof T>(
-  items: T[],
+  items: ReadonlyArray<T>,
   by: K,
   options: { exclude: true },
 ): Record<string, Omit<T, K>[]>;
 
 export function groupBy<T extends Record<string, unknown>, K extends keyof T>(
-  items: T[],
+  items: ReadonlyArray<T>,
   by: K,
   options: { exclude: false },
 ): Record<string, T[]>;
 
 export function groupBy<T extends Record<string, unknown>, K extends keyof T>(
-  items: T[],
+  items: ReadonlyArray<T>,
   by: K,
   options?: { exclude: boolean },
 ) {
@@ -62,8 +62,17 @@ export const sortRange = (range: Range): Range => [
   Math.max(...range),
 ];
 
-export const pluralize = (str: string, count: number): string =>
-  count > 1 ? `${str}s` : str;
+export const pluralize = (
+  str: string,
+  count: number,
+  full?: boolean,
+): string => {
+  if (full) {
+    return `${count} ${count === 1 ? str : `${str}s`}`;
+  }
+
+  return count === 1 ? str : `${str}s`;
+};
 
 export const createMatrix = <T>(length: number, value: T): Matrix<T> =>
   Array.from({ length }, () => Array(length).fill(value));
@@ -81,3 +90,11 @@ export const computeIntervalMs = (
   const rawInterval = Math.round(targetTotalDurationMs / safeStepCount);
   return Math.max(minimumIntervalMs, rawInterval);
 };
+
+export const formatDensity = (density: number) =>
+  `${density.toString().padStart(2, '0')}/25`;
+
+export const densityValues = (min: number, max: number) => ({
+  min: `MIN: ${min.toString().padStart(2, '0')}`,
+  max: `MAX: ${max.toString().padStart(2, '0')}`,
+});

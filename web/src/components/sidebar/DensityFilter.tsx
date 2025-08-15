@@ -1,16 +1,12 @@
 import { useEffect, useState, type FC } from 'react';
 
+import { densityValues } from '@/lib/utils';
 import Slider from '@/components/ui/Slider';
 import useFiltersStore from '@/stores/useFiltersStore';
-import useThemeStore from '@/stores/useThemeStore';
-import { useThemeContext } from '@/theme';
 import type { Range } from '@/types';
 
 const DensityFilter: FC = () => {
   const { density, setDensity } = useFiltersStore();
-  const { variant } = useThemeStore();
-  const { texts, config } = useThemeContext(variant);
-  const { styles } = config;
   const [dragValue, setDragValue] = useState<Range | null>(null);
 
   // Clear drag state when store density changes (e.g., from reset)
@@ -23,21 +19,14 @@ const DensityFilter: FC = () => {
   return (
     <div className='space-y-4'>
       <div className='space-y-2'>
-        <h3
-          className={`text-sidebar-foreground text-sm font-bold tracking-wide ${styles.title}`}
-        >
-          {texts.pixelDensity}
+        <h3 className='text-sidebar-foreground crt-heading-sm tracking-wide uppercase'>
+          Pixel Density
         </h3>
-        <div
-          className={`text-muted-foreground flex justify-between text-xs font-normal ${styles.body}`}
-        >
-          <span>
-            {texts.densityValues(displayValue[0], displayValue[1]).min}
-          </span>
 
-          <span>
-            {texts.densityValues(displayValue[0], displayValue[1]).max}
-          </span>
+        <div className='crt-caption-muted flex justify-between'>
+          <span>{densityValues(displayValue[0], displayValue[1]).min}</span>
+
+          <span>{densityValues(displayValue[0], displayValue[1]).max}</span>
         </div>
       </div>
 
@@ -52,15 +41,13 @@ const DensityFilter: FC = () => {
           max={25}
           min={0}
           step={1}
-          className={config.styles.sliderClass}
+          className={'retro-slider'}
         />
       </div>
 
-      <div
-        className={`text-muted-foreground flex justify-between text-xs font-normal ${styles.body}`}
-      >
-        <span>{texts.empty}</span>
-        <span>{texts.full}</span>
+      <div className='crt-caption-muted flex justify-between uppercase'>
+        <span>Empty</span>
+        <span>Full</span>
       </div>
     </div>
   );

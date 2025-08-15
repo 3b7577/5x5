@@ -2,10 +2,10 @@ import { useMemo, type FC } from 'react';
 import { TAGS } from '@shared/tags';
 
 import { CATEGORY_PATTERNS, type FillPattern } from '@/lib/animationPatterns';
+import { pluralize } from '@/lib/utils';
 import { usePixelMatrixAnimation } from '@/hooks/usePixelMatrixAnimation';
 import useFiltersStore from '@/stores/useFiltersStore';
 import useThemeStore from '@/stores/useThemeStore';
-import { useThemeContext } from '@/theme';
 
 interface PixelMatrixLoaderProps {
   size?: number;
@@ -18,9 +18,8 @@ const PixelMatrixLoader: FC<PixelMatrixLoaderProps> = ({
   className = '',
   isResetting = false,
 }) => {
-  const { variant } = useThemeStore();
+  const { themeConfig } = useThemeStore();
   const { selectedTags } = useFiltersStore();
-  const { config: themeConfig, texts } = useThemeContext(variant);
 
   // Determine fill pattern based on last selected tag
   const fillPattern = useMemo((): FillPattern => {
@@ -66,42 +65,42 @@ const PixelMatrixLoader: FC<PixelMatrixLoaderProps> = ({
     if (isResetting) {
       switch (resetPhase) {
         case 'flash':
-          return texts.systemReset;
+          return '>> SYSTEM RESET <<';
         case 'clear':
-          return texts.clearingMemory;
+          return '>> CLEARING MEMORY <<';
         case 'complete':
-          return texts.resetComplete;
+          return '>> RESET COMPLETE <<';
         default:
-          return texts.loadingPatterns;
+          return '>> LOADING PATTERNS <<';
       }
     }
 
     if (isScanning) {
-      return texts.scanningMatrix;
+      return '>> SCANNING MATRIX <<';
     }
 
-    return texts.loadingPatterns;
+    return '>> LOADING PATTERNS <<';
   };
 
   const getLoadingSubtext = (): string => {
     if (isResetting) {
       switch (resetPhase) {
         case 'flash':
-          return texts.flushingData;
+          return 'FLUSHING ALL FILTER DATA...';
         case 'clear':
-          return texts.purgingSelections;
+          return 'PURGING ACTIVE SELECTIONS...';
         case 'complete':
-          return texts.filtersCleared;
+          return 'ALL FILTERS CLEARED SUCCESSFULLY';
         default:
-          return texts.initializingDb;
+          return 'INITIALIZING PATTERN DATABASE...';
       }
     }
 
     if (selectedTags.length > 0) {
-      return texts.applyingFilters(selectedTags.length);
+      return `Applying ${pluralize('filter', selectedTags.length, true)}...`;
     }
 
-    return texts.initializingDb;
+    return 'INITIALIZING PATTERN DATABASE...';
   };
 
   return (
@@ -155,13 +154,12 @@ const PixelMatrixLoader: FC<PixelMatrixLoaderProps> = ({
 
       <div className='text-center'>
         <div
-          className={`text-primary mb-1 text-sm font-bold tracking-wide ${themeConfig.styles.title}`}
+          className={`text-primary crt-heading-sm mb-1 font-bold tracking-wide`}
         >
           {getLoadingTitle()}
         </div>
-        <div
-          className={`text-muted-foreground text-xs ${themeConfig.styles.body}`}
-        >
+
+        <div className={`text-muted-foreground crt-caption`}>
           {getLoadingSubtext()}
         </div>
       </div>
