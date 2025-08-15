@@ -1,7 +1,7 @@
 import { FastifyPluginAsync } from 'fastify';
 import { db } from '../../db/client.js';
 import { bw25 } from '../../db/schema.js';
-import { TAGS } from '@shared/tags.js';
+import { BIT, isTagKey } from '@shared/tags.js';
 import {
   and,
   asc,
@@ -128,18 +128,15 @@ const imagesRoute: FastifyPluginAsync = async (fastify) => {
         ];
 
         if (tags) {
-          const tagNames = (tags.split(',') ?? []).map((t) => t.trim());
-          const tagToBit = Object.fromEntries(TAGS.map((t) => [t.key, t.bit]));
+          const tagNames = tags
+            .split(',')
+            .map((t) => t.trim())
+            .filter(Boolean);
 
           const bitmask = tagNames.reduce((acc, tag) => {
-            const bit = tagToBit[tag];
-            if (!bit) {
-              throw new Error(`Unknown tag: ${tag}`);
-            }
+            if (!isTagKey(tag)) throw new Error(`Unknown tag: ${tag}`);
 
-            acc |= bit;
-
-            return acc;
+            return acc | BIT[tag];
           }, 0n);
 
           conditions.push(sql`${bw25.tagBits} & ${bitmask} = ${bitmask}`);
