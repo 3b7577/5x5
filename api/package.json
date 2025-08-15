@@ -26,10 +26,7 @@
   "devDependencies": {
     "@types/node": "^24.0.10",
     "@types/pg": "^8.15.4",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
     "drizzle-kit": "^0.31.4",
-    "eslint": "^8.57.1",
     "prettier": "^3.6.2",
     "tsx": "^4.20.3",
     "typescript": "^5.5.4"
