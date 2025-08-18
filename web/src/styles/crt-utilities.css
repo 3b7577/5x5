@@ -16,7 +16,7 @@
   }
 
   .crt-card {
-    @apply bg-card/40 rounded-md border p-3;
+    @apply bg-card/40 h-full rounded-md border p-3;
   }
 
   .crt-card-lg {

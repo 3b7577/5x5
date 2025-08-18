@@ -1,9 +1,8 @@
 import { type FC } from 'react';
 
 import { formatDensity } from '@/lib/utils';
+import CanvasPattern from '@/components/patterns/grid/CanvasPattern';
 import type { Pattern } from '@/types';
-
-import CanvasPattern from './CanvasPattern';
 
 interface PatternCardProps {
   pattern: Pattern;

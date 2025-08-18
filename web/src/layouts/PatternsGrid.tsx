@@ -6,7 +6,7 @@ import {
   PatternsGrid,
   ResultsFooter,
   ResultsHeader,
-} from '@/components/patterns';
+} from '@/components/patterns/grid';
 import useFiltersStore from '@/stores/useFiltersStore';
 import usePatternsStore from '@/stores/usePatternsStore';
 
