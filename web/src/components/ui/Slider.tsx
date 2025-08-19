@@ -1,5 +1,5 @@
-import type { CSSProperties, PointerEvent } from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { cn, sortRange } from '@/lib/utils';
 import type { Range } from '@/types';
@@ -50,31 +50,39 @@ export default function CRTRangeSlider({
     if (isFixed && onCommit) onCommit([min, min]);
   }, [isFixed, min, onCommit]);
 
-  const startPointer = (thumbIndex: 0 | 1) => (e: PointerEvent) => {
+  const startPointer = (thumbIndex: 0 | 1) => (e: React.PointerEvent) => {
     if (isFixed) return;
     (e.target as Element).setPointerCapture(e.pointerId);
     setActiveThumb(thumbIndex);
   };
 
-  const movePointer = (e: PointerEvent) => {
-    if (isFixed) return;
+  useEffect(() => {
     if (activeThumb === null) return;
-    const track = trackRef.current;
-    if (!track) return;
-    const rect = track.getBoundingClientRect();
-    const nextVal = pxToValue(e.clientX, rect, min, max, step);
-    const nextRange: Range =
-      activeThumb === 0 ? [nextVal, value[1]] : [value[0], nextVal];
-    onChange?.(nextRange);
-  };
 
-  const endPointer = () => {
-    if (isFixed) return;
-    if (activeThumb === null) return;
-    setActiveThumb(null);
-    const sorted = sortRange(value);
-    onCommit?.(sorted);
-  };
+    const handleMove = (e: PointerEvent) => {
+      if (isFixed) return;
+      const track = trackRef.current;
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const nextVal = pxToValue(e.clientX, rect, min, max, step);
+      const nextRange: Range =
+        activeThumb === 0 ? [nextVal, value[1]] : [value[0], nextVal];
+      onChange?.(nextRange);
+    };
+
+    const handleUp = () => {
+      setActiveThumb(null);
+      onCommit?.(sortRange(value));
+    };
+
+    window.addEventListener('pointermove', handleMove);
+    window.addEventListener('pointerup', handleUp, { once: true });
+
+    return () => {
+      window.removeEventListener('pointermove', handleMove);
+      window.removeEventListener('pointerup', handleUp);
+    };
+  }, [activeThumb, isFixed, min, max, step, onChange, onCommit, value]);
 
   const [low, high] = useMemo(() => sortRange(value), [value]);
   const lowPct = valueToPercent(low, min, max);
@@ -94,6 +102,10 @@ export default function CRTRangeSlider({
       style={thumbStyle(val)}
     >
       <div
+        role='slider'
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={val}
         className={cn(
           'border-primary bg-background block size-4 shrink-0 rounded-full border shadow-sm',
           'transition-[color,box-shadow,transform] duration-75',
@@ -105,12 +117,7 @@ export default function CRTRangeSlider({
   );
 
   return (
-    <div
-      className={cn('relative w-full select-none', className)}
-      onPointerMove={movePointer}
-      onPointerUp={endPointer}
-      onPointerCancel={endPointer}
-    >
+    <div className={cn('retro-slider relative w-full select-none', className)}>
       <div className='relative'>
         <div
           ref={trackRef}
