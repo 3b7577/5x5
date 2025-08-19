@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from 'react';
 
-import { densityValues } from '@/lib/utils';
+import { densityValues, sortRange } from '@/lib/utils';
 import Slider from '@/components/ui/Slider';
 import useFiltersStore from '@/stores/useFiltersStore';
 import type { Range } from '@/types';
@@ -15,6 +15,7 @@ const DensityFilter: FC = () => {
   }, [density]);
 
   const displayValue = dragValue || density;
+  const [sortedMin, sortedMax] = sortRange(displayValue);
 
   return (
     <div className='space-y-4'>
@@ -24,24 +25,23 @@ const DensityFilter: FC = () => {
         </h3>
 
         <div className='crt-caption-muted flex justify-between'>
-          <span>{densityValues(displayValue[0], displayValue[1]).min}</span>
+          <span>{densityValues(sortedMin, sortedMax).min}</span>
 
-          <span>{densityValues(displayValue[0], displayValue[1]).max}</span>
+          <span>{densityValues(sortedMin, sortedMax).max}</span>
         </div>
       </div>
 
       <div className='px-2'>
         <Slider
           value={displayValue}
-          onValueChange={(value) => setDragValue(value as Range)}
-          onValueCommit={(value) => {
+          onChange={(value) => setDragValue(value as Range)}
+          onCommit={(value) => {
             setDensity(value as Range);
             setDragValue(null);
           }}
           max={25}
           min={0}
           step={1}
-          className={'retro-slider'}
         />
       </div>
 

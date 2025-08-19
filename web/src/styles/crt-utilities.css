@@ -31,6 +31,10 @@
     @apply hover:translate-x-[-1px] hover:translate-y-[-1px] hover:[box-shadow:4px_4px_0px_0px_var(--border)];
   }
 
+  .crt-glow-primary {
+    @apply [box-shadow:_0_0_8px_2px_color-mix(in_srgb,var(--primary)_50%,transparent)];
+  }
+
   .crt-caption {
     @apply font-mono text-xs font-normal [text-shadow:_0_0_1px_currentColor];
   }
