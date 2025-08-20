@@ -26,7 +26,7 @@ const buildServer = async () => {
   server.register(imagesRoute, { prefix: '/api' });
   server.register(infoRoute, { prefix: '/api' });
 
-  const distPath = path.resolve(__dirname, '../dist/web');
+  const distPath = path.resolve(__dirname, '../web');
   if (fs.existsSync(distPath)) {
     await server.register(staticPlugin, {
       root: distPath,
