@@ -5,7 +5,7 @@ import { sql } from 'drizzle-orm';
 
 const infoRoute: FastifyPluginAsync = async (fastify) => {
   fastify.get(
-    '/api/info',
+    '/info',
     {
       schema: {
         description: 'General info about the dataset and constraints',

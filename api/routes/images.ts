@@ -49,7 +49,7 @@ const decodeCursor = (cursor: string): Cursor => {
 
 const imagesRoute: FastifyPluginAsync = async (fastify) => {
   fastify.get(
-    '/api/images',
+    '/images',
     {
       schema: {
         description: 'Get 5x5 images filtered by tags and density',
