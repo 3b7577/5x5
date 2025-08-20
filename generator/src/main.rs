@@ -1,11 +1,13 @@
 use anyhow::{Ok, Result};
 use dotenvy::from_path;
 use indicatif::{ProgressBar, ProgressStyle};
+use native_tls::TlsConnector;
 use postgres::{
-    Client, NoTls,
+    Client,
     binary_copy::BinaryCopyInWriter,
     types::{ToSql, Type},
 };
+use postgres_native_tls::MakeTlsConnector;
 use rayon::prelude::*;
 use std::{env, path::PathBuf};
 use thousands::Separable;
@@ -15,7 +17,9 @@ fn main() -> Result<()> {
     from_path(env_path).expect("Failed to load .env from root");
     let db_url = env::var("DATABASE_URL").expect("DATABASE_URL is not set");
 
-    let mut client = Client::connect(&db_url, NoTls)?;
+    let tls = TlsConnector::new()?;
+    let tls = MakeTlsConnector::new(tls);
+    let mut client = Client::connect(&db_url, tls)?;
 
     client.execute("DROP TABLE IF EXISTS bw25", &[])?;
     client.execute(
@@ -35,7 +39,31 @@ fn main() -> Result<()> {
     let col_types = &[Type::INT8, Type::INT8, Type::INT2];
     let mut writer = BinaryCopyInWriter::new(sink, col_types);
 
-    eprintln!("generating in parallel...");
+    let density_min: u8 = env::var("DENSITY_MIN")
+        .ok()
+        .and_then(|v| v.parse::<u8>().ok())
+        .unwrap_or(0);
+    let density_max: u8 = env::var("DENSITY_MAX")
+        .ok()
+        .and_then(|v| v.parse::<u8>().ok())
+        .unwrap_or(25);
+
+    if density_min > density_max || density_max > 25 {
+        anyhow::bail!(
+            "Invalid density range: DENSITY_MIN={} DENSITY_MAX={}. Must satisfy 0 <= min <= max <= 25",
+            density_min,
+            density_max
+        );
+    }
+
+    eprintln!(
+        "generating in parallel{}...",
+        if density_min == 0 && density_max == 25 {
+            String::new()
+        } else {
+            format!(" with density range {}-{}", density_min, density_max)
+        }
+    );
 
     let total_count = 1u64 << 25;
     let pb = ProgressBar::new(total_count);
@@ -49,9 +77,13 @@ fn main() -> Result<()> {
     let all_rows: Vec<(i64, i64, i16)> = (0u32..(1 << 25))
         .into_par_iter()
         .filter_map(|img_bits| {
-            let analyzed_image = generator::analyze(img_bits);
             pb.inc(1);
+            let black_cnt = img_bits.count_ones() as u8;
+            if black_cnt < density_min || black_cnt > density_max {
+                return None;
+            }
 
+            let analyzed_image = generator::analyze(img_bits);
             if analyzed_image.tags.is_empty() {
                 None
             } else {

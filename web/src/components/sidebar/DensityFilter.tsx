@@ -6,7 +6,7 @@ import useFiltersStore from '@/stores/useFiltersStore';
 import type { Range } from '@/types';
 
 const DensityFilter: FC = () => {
-  const { density, setDensity } = useFiltersStore();
+  const { density, setDensity, densityBounds } = useFiltersStore();
   const [dragValue, setDragValue] = useState<Range | null>(null);
 
   // Clear drag state when store density changes (e.g., from reset)
@@ -39,8 +39,8 @@ const DensityFilter: FC = () => {
             setDensity(value as Range);
             setDragValue(null);
           }}
-          max={25}
-          min={0}
+          max={densityBounds[1]}
+          min={densityBounds[0]}
           step={1}
         />
       </div>

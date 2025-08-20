@@ -11,6 +11,10 @@ export interface FetchImagesParams {
   sortOrder?: 'asc' | 'desc';
 }
 
+export interface ApiInfoResponse {
+  density: { min: number; max: number };
+}
+
 export const imgBitsToPattern = (imgBits: number): PatternMatrix => {
   const pattern: PatternMatrix = [];
   for (let i = 0; i < 5; i++) {
@@ -72,5 +76,13 @@ export const fetchImages = async (
     throw new Error(`Failed to fetch images: ${response.statusText}`);
   }
 
+  return response.json();
+};
+
+export const fetchInfo = async (): Promise<ApiInfoResponse> => {
+  const response = await window.fetch(`/api/info`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch info: ${response.statusText}`);
+  }
   return response.json();
 };

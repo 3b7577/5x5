@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import imagesRoute from './routes/images.js';
+import infoRoute from './routes/info.js';
 
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
@@ -48,6 +49,7 @@ const buildServer = async () => {
   });
 
   server.register(imagesRoute);
+  server.register(infoRoute);
 
   return server;
 };
