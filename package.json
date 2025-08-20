@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "type": "module",
   "packageManager": "npm@10.0.0",
+  "engines": {
+    "node": ">=20 <23"
+  },
   "workspaces": [
     "api",
     "web"
