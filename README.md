@@ -15,6 +15,13 @@ This project consists of 3 main components:
 3. **Web UI** _(Coming Soon)_ - Interactive frontend for browsing and
    visualizing the generated 5x5 images
 
+## Live Demo
+
+A hosted demo is available:
+[5x5 Live Demo](https://5x5-production-73ff.up.railway.app/)
+
+Note: The demo dataset is currently limited to pixel density in the range 16–25.
+
 ## Prerequisites
 
 - [Rust](https://rustup.rs/)
@@ -40,7 +47,15 @@ Create a `.env` file in the root directory:
 ```env
 DATABASE_URL=postgresql://username:password@localhost:5432/database_name
 PORT=3000
+DENSITY_MIN=0
+DENSITY_MAX=25
 ```
+
+Notes:
+
+- `DENSITY_MIN` and `DENSITY_MAX` limit generated patterns to a pixel density
+  range. Valid range is 0–25 and must satisfy
+  `0 <= DENSITY_MIN <= DENSITY_MAX <= 25`. If unset, defaults are 0 and 25.
 
 ### 3. Setup Database
 
