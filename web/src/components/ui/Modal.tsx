@@ -13,10 +13,12 @@ export interface ModalProps {
   onClose: () => void;
   children?: ReactNode;
   className?: string;
+  fullscreen?: boolean;
 }
 
 interface ModalContextValue {
   onClose: () => void;
+  fullscreen: boolean;
 }
 
 const ModalContext = createContext<ModalContextValue | null>(null);
@@ -26,7 +28,13 @@ export const useModalContext = (): ModalContextValue => {
   return ctx;
 };
 
-const Modal: FC<ModalProps> = ({ isOpen, onClose, children, className }) => {
+const Modal: FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  className,
+  fullscreen = false,
+}) => {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -49,10 +57,12 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, children, className }) => {
         onClick={onClose}
       />
 
-      <ModalContext.Provider value={{ onClose }}>
+      <ModalContext.Provider value={{ onClose, fullscreen }}>
         <div
           className={cn(
-            'crt-card-lg relative z-10 max-h-[90vh] w-[min(100vw-24px,1100px)] overflow-hidden shadow-xl',
+            fullscreen
+              ? 'crt-card-lg relative z-10 h-screen w-screen overflow-hidden rounded-none shadow-xl'
+              : 'crt-card-lg relative z-10 max-h-[90vh] w-[min(100vw-24px,1100px)] overflow-hidden shadow-xl',
             'crt-shadow-base',
             className,
           )}
@@ -90,21 +100,27 @@ export const ModalTitle: FC<{ children?: ReactNode; className?: string }> = ({
 export const ModalBody: FC<{ children?: ReactNode; className?: string }> = ({
   children,
   className,
-}) => (
-  <div
-    className={cn('max-h-[calc(90vh-110px)] overflow-y-auto p-4', className)}
-  >
-    {children}
-  </div>
-);
+}) => {
+  const { fullscreen } = useModalContext();
+  return (
+    <div
+      className={cn(
+        fullscreen
+          ? 'h-[calc(100vh-110px)] overflow-y-auto p-4'
+          : 'max-h-[calc(90vh-110px)] overflow-y-auto p-4',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const ModalFooter: FC<{ children?: ReactNode; className?: string }> = ({
   children,
   className,
 }) => (
-  <div className={cn('bg-card/50 border-t px-4 py-3', className)}>
-    {children}
-  </div>
+  <div className={cn('bg-card border-t px-4 py-3', className)}>{children}</div>
 );
 
 export const ModalClose: FC<{

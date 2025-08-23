@@ -8,7 +8,7 @@ const ResultsFooter: FC = () => {
     usePatternsStore();
 
   return (
-    <div className='border-border bg-background/95 fixed right-0 bottom-0 left-80 z-10 flex flex-col items-center justify-center border-t px-6 py-4 backdrop-blur-sm'>
+    <div className='border-border bg-background/95 right-0 bottom-0 left-0 z-10 flex flex-col items-center justify-center border-t px-4 py-3 md:fixed md:left-80 md:px-6 md:py-4 md:backdrop-blur-sm'>
       <div className='text-center'>
         <p className='text-muted-foreground mb-2 text-sm'>
           Showing {patterns.length} of {totalCount} patterns
@@ -23,7 +23,7 @@ const ResultsFooter: FC = () => {
           onClick={loadMore}
           disabled={isLoading}
           variant='outline'
-          className='mt-3'
+          className='mt-2 md:mt-3'
         >
           {isLoading ? 'Loading...' : 'Load More'}
         </Button>

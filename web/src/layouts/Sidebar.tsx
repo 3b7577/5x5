@@ -8,7 +8,7 @@ import {
 } from '@/components/sidebar';
 
 const Sidebar: FC = () => (
-  <div className='bg-sidebar border-border h-full w-80 overflow-y-auto border-2 border-r-2 p-4 shadow-[3px_3px_0px_0px_var(--border)]'>
+  <div className='bg-sidebar border-border h-[100dvh] w-full overflow-y-auto border-2 border-r-2 p-4 shadow-[3px_3px_0px_0px_var(--border)] md:h-full md:w-80'>
     <div className='space-y-4'>
       <SidebarHeader />
       <DensityFilter />

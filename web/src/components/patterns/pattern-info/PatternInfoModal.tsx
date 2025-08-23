@@ -29,6 +29,7 @@ import {
   OverviewTab,
   VisualTab,
 } from '@/components/patterns/pattern-info/tabs';
+import useDeviceStore from '@/stores/useDeviceStore';
 import usePatternInfoStore from '@/stores/usePatternInfoStore';
 import type { Pattern, PatternInfoTab } from '@/types';
 
@@ -41,6 +42,7 @@ const TABS: PatternInfoTab[] = ['overview', 'visual', 'debug'];
 const PatternInfoModal: FC<Props> = ({ pattern, ...modalProps }) => {
   const { setPatternInfo, resetPatternInfo, activeTab, setActiveTab, bitId } =
     usePatternInfoStore();
+  const isMobile = useDeviceStore((s) => s.isMobile);
 
   useEffect(() => {
     const { matrix, density, tags } = pattern;
@@ -94,7 +96,7 @@ const PatternInfoModal: FC<Props> = ({ pattern, ...modalProps }) => {
   }, [pattern.id]);
 
   return (
-    <Modal {...modalProps} isOpen>
+    <Modal {...modalProps} isOpen fullscreen={isMobile}>
       <ModalHeader>
         <ModalTitle>
           <div className='flex items-center gap-3'>
@@ -104,22 +106,23 @@ const PatternInfoModal: FC<Props> = ({ pattern, ...modalProps }) => {
             </span>
           </div>
         </ModalTitle>
-        <ModalClose />
+        <ModalClose className='border-border bg-card text-foreground h-9 rounded-md border-2 px-3 font-mono text-xs uppercase shadow-[2px_2px_0px_0px_var(--border)]'>
+          X
+        </ModalClose>
       </ModalHeader>
 
-      <ModalBody>
+      <ModalBody className='p-3 pb-12 sm:p-4 sm:pb-14 md:pb-16'>
         {activeTab === 'overview' && <OverviewTab />}
-
         {activeTab === 'visual' && <VisualTab />}
-
         {activeTab === 'debug' && <DebugTab />}
       </ModalBody>
 
-      <ModalFooter>
-        <div className='flex items-center justify-between gap-2'>
-          <CopyControls />
-
-          <div className='flex gap-2'>
+      <ModalFooter className='sticky bottom-0'>
+        <div className='flex items-center justify-center gap-2 md:justify-between'>
+          <div className='hidden md:block'>
+            <CopyControls />
+          </div>
+          <div className='flex flex-wrap gap-2'>
             {TABS.map((t) => (
               <Button
                 key={t}

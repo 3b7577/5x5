@@ -18,7 +18,7 @@ const PatternsGrid: FC = () => {
 
   return (
     <>
-      <div className='grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-12'>
+      <div className='xs:grid-cols-3 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-12'>
         {patterns.map((pattern) => (
           <PatternCard
             key={pattern.id}
