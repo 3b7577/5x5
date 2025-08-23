@@ -49,7 +49,6 @@ const Modal: FC<ModalProps> = ({
   return (
     <div
       className='fixed inset-0 z-50 flex items-center justify-center'
-      aria-modal
       role='dialog'
     >
       <div
@@ -124,16 +123,14 @@ export const ModalFooter: FC<{ children?: ReactNode; className?: string }> = ({
 );
 
 export const ModalClose: FC<{
-  ariaLabel?: string;
   children?: ReactNode;
   className?: string;
-}> = ({ ariaLabel = 'Close', children, className }) => {
+}> = ({ children, className }) => {
   const { onClose } = useModalContext();
   return (
     <button
       className={cn('text-muted-foreground hover:text-foreground', className)}
       onClick={onClose}
-      aria-label={ariaLabel}
     >
       {children ?? '✕'}
     </button>
