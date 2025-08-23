@@ -19,7 +19,7 @@ const PatternsGridLayout: FC = () => {
 
   useEffect(() => {
     fetchPatterns();
-  }, [density, selectedTags, fetchPatterns]);
+  }, [density.join('-'), selectedTags.join(''), fetchPatterns]);
 
   useEffect(() => {
     const container = document.getElementById('patterns-scroll-container');

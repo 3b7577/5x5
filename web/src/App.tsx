@@ -26,7 +26,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (isSidebarOpen) closeSidebar();
-  }, [selectedTags, density]);
+  }, [selectedTags.join(''), density.join('-')]);
 
   return (
     <div className='bg-background flex h-screen'>
